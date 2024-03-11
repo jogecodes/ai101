@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Biología sintética III: CRISPR/Cas</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="652c16fb-6bf9-4888-bd85-3b1aef26f99c" class="page sans"><header><h1 class="page-title">Biología sintética III: CRISPR/Cas</h1><p class="page-description"></p></header><div class="page-body"><p id="9fccfe41-525b-4032-8222-048e6b8f88ce" class="">Las siglas de CRISPR corresponden a <em>Clustered Regularly Interspaced Short Palindromic Repeats</em>, y son secuencias de ADN bacteriano que contienen fragmentos de ADN de virus que las han atacado, de forma que puedan utilizarlos para detectar y destruir el ADN de nuevos ataques de virus similares y así defenderse eficazmente de ellos. </p><p id="50aafcd1-6f8e-46d4-b2b8-c92192354711" class="">Una secuencia de CRISPR, está formada por una serie de repeticiones cortas de secuencias de bases (<em>repeaters</em>) y <strong>espaciadores</strong>, provenientes de exposiciones a los virus. Asociadas a estas secuencias se suelen encontrar genes Cas (<strong><em>C</em></strong><em>RISPR-</em><strong><em>as</em></strong><em>sociated</em>), que codifican proteínas (endo)nucleasas, cuya función es catalizar la ruptura de enlaces en el interior de cadenas de material genético. Los espaciadores se utilizan para replicar el material genético de un virus como cadenas guía de ARN (abreviado gARN o crARN, de CRISPR ARN), que puede formar complejos con las proteínas Cas. En particular, el complejo formado por un gARN y la nucleasa Cas9 puede realizar cortes en los lugares objetivo, es decir, en material genético que sea complementario al ARN guía utilizado.</p><figure id="d1a95986-e001-44e9-b7ff-fcc9502ca40a" class="image"><a href="biosintetica_iii/Untitled.png"><img style="width:336px" src="biosintetica_iii/Untitled.png"/></a></figure><h1 id="013546b8-9d04-4cb2-8b55-b4c52f78c2ba" class="">Edición genómica con CRISPR/Cas9</h1><p id="5d0979cb-1ea7-4d97-ba34-da145961fda9" class="">Además de la cadena de ARN de guía (la gARN), las enzimas Cas9 requieren adicionalmente de una segunda cadena de ARN no codificante, el tracrARN (<em>transactivating </em>CRISPR ARN), de forma que a menudo en la bibliografía se hace referencia al ARN guía compuesto por la cadena de gARN (o crARN) y de tracrARN como sgARN (<em>single guide </em>RNA). Es frecuente encontrar los términos sgARN y gARN intercambiados en el contexto del uso de la enzima Cas9.</p><p id="a28587a6-c925-4e89-8bf5-f63e96098462" class="">Esta tecnología CRISPR/Cas9 puede utilizarse para la modificación genética de células <em>in vivo</em>, y promete ser la primera solución eficaz, económica y masivamente viable para editar ADN.</p><p id="4d569be5-ab63-4fc8-b2be-0fd2d8a2bf2b" class="">La nucleasa Cas9 se adhiere a una secuencia de entre 2 y 6 nts del ADN objetivo llamada PAM (<em>Protospacer adjacent motif</em>), que no está presente en el genoma bacteriano (y así se evita que se destruyan los <em>loci</em> del genoma CRISPR). Posteriormente, el complejo Cas9 desnaturaliza la cadena de ADN sujeta de ser objetivo y comprueba la coincidencia con el ARNg y, de ser correcta, emplea dos “tijeras” moleculares que cortan unas 3-4 bases del ADN objetivo. </p><div id="5db48c8e-7339-4672-bb61-ba6326e1b5c9" class="column-list"><div id="561137e4-d178-42bb-8388-2724dbeaa44c" style="width:62.5%" class="column"><figure id="75433759-0642-442f-bf87-f06bcdb49ea4" class="image"><a href="biosintetica_iii/Untitled%201.png"><img style="width:742px" src="biosintetica_iii/Untitled%201.png"/></a></figure></div><div id="fe8cd867-90ae-45c7-8c7a-7a05cd7d4d90" style="width:37.50000000000001%" class="column"><p id="3db0c7cf-3705-4dcb-9f99-24113d745a78" class="">Tras el corte, la célula intenta reparar el ADN destruído, pero introduce mutaciones que desabilitan el gen que portaba originalmente (y, por tanto, cumple la función de defensa bacteriana). No obstante, de estar presente una cadena de ADN con la secuencia deseada (el ADN donante o <em>donor DNA</em>) que pueda combinarse con los extremos del corte, puede reemplazarse la secuencia original con una nueva versión.</p></div></div><div id="62beb056-62e0-46bd-a783-9f3d049e5635" class="column-list"><div id="e89b9792-65c8-45d2-a40b-27f72ee7f396" style="width:62.5%" class="column"><figure id="b3da4a2c-e0bb-4cd4-89a3-d3235d1ee02c" class="image"><a href="biosintetica_iii/Untitled%202.png"><img style="width:687px" src="biosintetica_iii/Untitled%202.png"/></a></figure></div><div id="39d58ee8-5134-43d5-8da2-5ce889f2d800" style="width:37.5%" class="column"><p id="8962190c-e885-47c2-a9e6-0a3bd96bfd75" class="">Nótese que los lugares genéticos candidatos a la edición por CRISPR están limitados por las localizaciones de las secuencias PAM, aunque afortunadamente se han conseguido aislar muchas nucleasas Cas diferentes de distintas especies bacterianas que reconocen distintas secciones PAM.</p></div></div><p id="3d80a7c5-5780-4c04-bde0-0797586289fe" class="">Por tanto, la edición del genoma de CRISPR aprovecha la capacidad de Cas9 para inducir roturas bicatenarias de ADN (<em>Double Strand Break, </em>DSB) unos pocos nucleótidos antes de la secuencia PAM. La posterior reparación de las DSB por la célula puede clasificarse en dos categorías de vías de reparación: la unión de extremos no homólogos (<em>Non-Homologous End Joining, </em>NHEJ) y la reparación dirigida por homología (<em>Homology Directed Repair, </em>HDR). </p><figure id="7c4dd61a-32c2-405d-af76-f4c0ef61de54" class="image"><a href="biosintetica_iii/Untitled%203.png"><img style="width:528px" src="biosintetica_iii/Untitled%203.png"/></a></figure><div id="01f07e4e-9de1-4cf4-af7a-418ff3bfd373" class="column-list"><div id="860f2428-6687-4b1b-a7a6-f0374640adf9" style="width:43.75%" class="column"><figure id="0749de14-e35e-4b69-982c-1e83d1f0de31" class="image"><a href="biosintetica_iii/Untitled%204.png"><img style="width:560px" src="biosintetica_iii/Untitled%204.png"/></a></figure></div><div id="16cfac33-0de3-4887-b8ee-f3a630c14ff9" style="width:56.25%" class="column"><p id="da10f993-b731-4152-b37f-21e3d4f1d877" class="">El primero de estos dos métodos, NHEJ, es el más activo de forma natural en las células, y repara el material genético sin una plantilla homóloga que sirva para validar la reparación, con lo que es muy propensa a errores o <strong>INDELS, </strong>inclusiones (<em>inclusions</em>) y eliminaciones<em> </em>(<em>deletions</em>) de fragmentos de material genético.</p><p id="8aa147c1-4f34-43e8-9ec7-721f67198dc6" class="">La reparación HDR, siendo la más común la HR (recombinación homóloga) emplea una plantilla del material genético a reparar, por lo que es la preferida para realizar ediciones genéticas robustas, pues permite introducir modificaciones a partir de la plantilla.</p></div></div><h2 id="db6ab046-5e49-46a9-b597-0d53c1286bd7" class="">Defective Cas9 (dCas9): Cas9 desactivada</h2><div id="aea840c3-564a-4561-8c0d-192e6eb0f662" class="column-list"><div id="2b42d28d-b283-4792-89b1-fe836491673b" style="width:50%" class="column"><figure id="bfcfa71c-8464-47af-9d02-b5e10ca1de6a" class="image"><a href="biosintetica_iii/Untitled%205.png"><img style="width:376px" src="biosintetica_iii/Untitled%205.png"/></a></figure></div><div id="2b9a8bdc-a1a0-48ff-b4c4-a227626873db" style="width:49.99999999999999%" class="column"><p id="cd7277fe-1cfc-45f6-8297-2d8a8cb70a84" class="">Se puede emplear una versión mutada de la Cas9 que está catalíticamente inactiva o “muerta” como activadora o represora de un gen objetivo o incluso como sensor génico, ya que aunque no realiza la acción de corte, se ancla firmemente a una sección de material genético determinada por el ARNg:</p><figure id="7086d32a-4b86-42ea-9515-6a1416e3f60d" class="image"><a href="biosintetica_iii/Untitled%206.png"><img style="width:449px" src="biosintetica_iii/Untitled%206.png"/></a></figure></div></div><h1 id="af525d60-22e2-4ee5-a4fd-4bac357cc780" class="">Impulsos genéticos con Cas9</h1><p id="16eded1f-278b-498e-ab1c-12c6edc49dc0" class="">Un sistema de impulso genético (<em>gene drive system</em>) es un fragmento de ADN que tiende a ser heredado más frecuentemente de lo normal. En organismos con reproducción sexual, los fragmentos de ADN deberían tener alrededor de un 50% de probabilidad de ser heredados por cada individuo descendiente (genética mendeliana). Los sistemas de impulso genético, sin embargo, consiguen manipular el sistema para ser heredados hasta el 100% de las veces.</p><p id="1347662f-2f41-4b0d-941d-93a58538eb97" class="">La mayoría de alteraciones genéticas artificiales no consiguen propagarse convenientemente en la naturaleza una vez expuestas a la reproducción “salvaje” (con muy pocas excepciones), pues incluso cuando la alteración no afecta a la habilidad reproductora del individuo, acaba diluyéndose y no persiste en la población, llegando incluso a extinguirse tras pocas generaciones. La solución a este problema podría encontrarse en la incrustación (<em>embedding</em>) de las alteraciones genéticas en un sistema de impulso genético, contrarrestando el efecto de la alteración artificial y propagándola a través de numerosas generaciones. </p><p id="35b39e39-1e83-4db8-9983-dab74a7efa86" class="">Este avance tendría numerosas utilidades, como la alteración genética de los caracteres de especies para la solución de problemas medioambientales. Por ejemplo, se podría introducir una sección genómica en los mosquitos que les impidiera portar ciertas enfermedades.</p><figure id="6f9c0711-1375-4a74-a2f0-3627a0acaeaf" class="image"><a href="biosintetica_iii/Untitled%207.png"><img style="width:1079px" src="biosintetica_iii/Untitled%207.png"/></a></figure><div id="e73f9170-d025-41f3-9167-00f4c8fce151" class="column-list"><div id="a6e63d44-ffa2-4814-94fe-cf085c8cdae9" style="width:56.25%" class="column"><figure id="42fe82dc-0c63-4574-b59c-21fa23cc0762" class="image"><a href="biosintetica_iii/Untitled%208.png"><img style="width:591px" src="biosintetica_iii/Untitled%208.png"/></a></figure></div><div id="dd5c5c04-60ae-434e-8a3d-036a83a6a387" style="width:43.75%" class="column"><p id="9a3a0166-b23a-47d8-ad6b-032c85758221" class="">Los mecanismos de impulso genético basados en Cas9 se apoyan en hacer portar al individuo modificado junto con el gen de interés una serie de genes codificadores de ARNg y para producir Cas9, de manera que una vez pasados a la descendencia, puede alterar el material genético para tener dos copias del gen de interés en lugar de sólo una y así asegurar su transmisión a la descendencia.</p></div></div><figure id="6b293ae7-1f1c-4aff-a46b-04f1e70ad834"><a href="https://wyss.harvard.edu/media-post/crispr-cas9-gene-drives/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">CRISPR-Cas9: Gene Drives</div><div class="bookmark-description">This animation explains how an emerging technology called &quot;gene drives&quot; may be used to potentially spread particular genomic alterations through targeted wild populations over many generations. It...</div></div><div class="bookmark-href"><img src="https://wyss.harvard.edu/app/themes/wyss-institute/favicon-96.png" class="icon bookmark-icon"/>https://wyss.harvard.edu/media-post/crispr-cas9-gene-drives/</div></div><img src="https://wyss-prod.imgix.net/app/uploads/2017/03/02170941/CRISPR-Cas9-Gene-Drive.jpg?w=800&amp;auto=format&amp;q=90&amp;fit=crop&amp;crop=faces,entropy" class="bookmark-image"/></a></figure><h1 id="e295a60b-234b-4500-9f82-ebd7dfbcb66f" class="">Puertas lógicas con CRISPR/dCas9</h1><p id="4cc384c0-62b8-44d1-b6e8-311d99c571d2" class="">Utilizando enzimas Cas9 desactivadas catalíticamente (dCas9) y pequeños sgARN, se pueden construir de forma escalable y simple circuitos lógicos genéticos de procesamiento de señales. </p><p id="f83eccd5-0a72-4373-9340-ac03ce58ff46" class="">En <em>Multi-input CRISPR/Cas genetic circuits that interface host regulatory networks, </em>Nielsen y Voigt desarrollan varias puertas lógicas transcripcionales con este mecanismo.</p><div id="1641b9ec-919a-43fc-8b65-c2efb545e687" class="column-list"><div id="0172fef0-c5d1-4aab-a6ee-a362790aa02c" style="width:56.25%" class="column"><figure id="3722d542-e4e2-4a2c-801a-30bddc93b952" class="image"><a href="biosintetica_iii/Untitled%209.png"><img style="width:432px" src="biosintetica_iii/Untitled%209.png"/></a></figure></div><div id="31657a39-5f37-4ef8-9dbc-5975b22aca67" style="width:43.75%" class="column"><p id="3bcd65aa-b705-4b95-a688-7c4baa284c56" class="">En primer lugar construyen una puerta NOT cuyo <em>input</em> es un promotor que permite la transcripción de un sgRNA sujeto a la formación de un complejo con una dCas9 que permite la inhibición de la transcripción del gen objetivo y, por tanto, de su expresión.</p></div></div><p id="735c8e4b-c8a7-4407-9f54-c9c14f56039e" class="">A partir de puertas NOT y NOR (dos puertas NOT conectadas en paralelo) se pueden construir circuitos genéticos arbitrarios. En estos circuitos, la dCas9 (en azul) media la represión de promototes sintéticos mediante sgARNs (los rectángulos de color). Como salida del circuito puede regularse la expresión de genes heterólogos (de otra especie) o endógenos.</p><figure id="e34f1651-61f5-4487-bf3d-c1f49d2e1277" class="image"><a href="biosintetica_iii/Untitled%2010.png"><img style="width:528px" src="biosintetica_iii/Untitled%2010.png"/></a></figure><p id="f67fde6b-accc-4cfe-ae18-60ffe8df28d5" class="">En <em>Digital logic circuits in yeast with CRISPR-dCas9 NOR gates, </em>Gander y colaboradores desarrollan una serie de circuitos lógicos en la levadura <em>Saccharomyces cerevisiae</em>, basados en puertas NOR, que permiten conectividad arbitraria y que tienen muy buenas cualidades de escalabilidad, pues están construidos a partir de una serie de puertas NOR que convierten <em>inputs </em>de sgRNAs en <em>outputs</em> de sgRNAs, permitiendo conectar las puertas entre sí.</p><p id="12d0fd25-5324-49f2-9d7e-e0c586a0d4ea" class="">Siguiendo esta técnica, consiguieron producir circuitos de hasta siete sgRNAs, los circuitos genéticos eucariotas más grandes hasta la fecha, que a lo mejor constituirán el futuro para grandes sistemas de decisión celular sintéticos.</p><figure id="408bb773-decf-4598-b81f-4c21972abd58" class="image"><a href="biosintetica_iii/Untitled%2011.png"><img style="width:672px" src="biosintetica_iii/Untitled%2011.png"/></a></figure><p id="ed0d1619-fa40-4a6a-9ee7-216a3952a716" class="">Para conseguir un estado OFF consistente en las puertas NOR se usa un dominio de represión del remodelado de la creatina, el Mxi1, aprovechando la ventaja que ofrecen las células eucariotas fusionando este dominio con la dCas9, pues ofrece una fuerte represión de la transcripción. </p><div id="4e63fdb2-aaff-415c-a569-92071b291e7c" class="column-list"><div id="d3ebd396-15ec-49e4-a9f8-3f4a007f80e2" style="width:31.25%" class="column"><figure id="ee05cc54-d90a-41c9-8333-46ce2b90a80c" class="image"><a href="biosintetica_iii/Untitled%2012.png"><img style="width:627px" src="biosintetica_iii/Untitled%2012.png"/></a></figure></div><div id="3f9a802f-5abf-4998-a900-30a217d2cd42" style="width:68.75%" class="column"><p id="f183ec9e-c898-454d-8e92-884bdf393a73" class="">Para esta tarea, emplean una librería de 20 gARNs con bajo <em>crosstalk</em>, lo que permite producir hasta <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><msup><mn>0</mn><mn>3</mn></msup><mo>=</mo><mn>8000</mn></mrow><annotation encoding="application/x-tex">20^3=8000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">2</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8000</span></span></span></span></span><span>﻿</span></span> puertas NOR. </p><p id="295433ed-9414-4c33-b9f3-0f549307037f" class="">Exclusivamente a base de combinaciones de éstas puertas NOR se pueden generar un amplio rango de circuitos lógicos, produciendo comportamientos como los siguientes:</p></div></div><figure id="8fefe84c-d9e2-4c02-a5cb-d4102bebc7ff" class="image"><a href="biosintetica_iii/Untitled%2013.png"><img style="width:1355px" src="biosintetica_iii/Untitled%2013.png"/></a></figure><h1 id="887c154d-f7b7-4a1b-a03f-3d70c3beae31" class="">Detección de ácidos nucleicos con Cas</h1><h2 id="3fcbfb37-319e-47d8-b035-43ff08afe62c" class="">SHERLOCK (<em>Specific High Sensitivity Enzymatic Reporter UnLOCKing</em>)</h2><p id="e4d75c6d-b42d-4d16-902b-0a383bebe747" class="">La nucleasa Cas13 puede ser programada con un crARN (un ARN de guía más simple, ) para realizar un corte una secuencia corta objetivo de ARN (ssARN), que podría ser una secuencia específica de un virus o un patógeno. La diferencia principal entre la Cas13 y la Cas9 es que la primera tiene como objetivo el ARN y la segunda el ADN. Una vez la Cas13 reconoce y se une a la secuencia para la que estaba programada, se activa un proceso de cortado (<em>cleaving</em>) de las secuencias de ssARN a su alrededor, como si fuera un “efecto de corte colateral”. </p><div id="7573bd67-439d-4eff-8c30-f7ea9612b9dc" class="column-list"><div id="733eb88c-3134-4a58-a9b9-fbed8dbdc37e" style="width:50%" class="column"><figure id="7783c3d1-cdc8-467d-aebb-31f00ca9df27" class="image"><a href="biosintetica_iii/Untitled%2014.png"><img style="width:336px" src="biosintetica_iii/Untitled%2014.png"/></a></figure></div><div id="7f6b0ba9-8ad9-41e6-a3ab-1473b159e3e8" style="width:50%" class="column"><p id="36d8fb2f-f228-4371-a273-bfab998819e6" class="">En el sistema SHERLOCK se añade a la reacción una molécula reportadora ssRNA fluorescente desactivado (<em>quenched</em>), que al ser cortado por la activación de la Cas13 produce una señal luminosa que indica la presencia del ácido nucleico objetivo.</p><p id="3e4bd215-f70e-4f84-8aa9-d51001921413" class="">Para una detección de la señal más robusta, se emplea amplificación RPA (<em>Recombinase Polymerase Amplification</em>, una alternativa isoterma a la PCR) o RT-RPA (<em>Reverse Transcriptase </em>RPA) de la señal de ARN.</p><p id="26a89b59-9edb-4ddd-9ebf-7b86bf754455" class="">También se puede aplicar el sistema SHERLOCK a detección de ADN si se incluye un proceso de transcipción (como T7).</p></div></div><h2 id="ec2a81e3-d964-4b3f-ae78-73d25d3e2bb9" class="">DETECTR (DNA Endonuclease-TargEted CRISPR Trans Reporter)</h2><p id="70bc355e-ca27-4bc3-a98a-219d6ed06cce" class="">El sistema DETECTR funciona de manera similar al SHERLOCK, pero utiliza la enzima Cas12a, cuyo objetivo es una secuencia de ADN característica seleccionada por medio de un crARN y capaz de producir un corte de doble hebra en una molécula de ADN. Una vez activada la Cas12a cuando empareja su crARN con una molécula de ADN de doble hebra, de forma similar a la Cas13, desencadena una reacción de corte indiscriminado (a un ratio de unos 1250 cortes por segundo) de moléculas de ADN de una sola hebra (<em>single strand DNA, </em>ssADN) hasta degradar todas las de su entorno por completo.</p><p id="fd0f1e3a-b5f2-4e5d-b650-fee0526aa58f" class="">La degradación del ssADN del entorno de la Cas12a activada se puede emplear para producir una señal a partir de un detector inactivo (por ejemplo, por fluorescencia) en forma de cadena ssADN.</p><h1 id="1093995c-3341-482e-b383-4623705f8a0a" class="">Escritura de ADN con CRISPR/Cas</h1><h2 id="d9d0b759-b5f4-4992-bd8e-b975434a4fcb" class="">Codificación de archivos en bacterias</h2><p id="91f00aa6-cb6d-4c79-8cfc-3e65bc712031" class="">El ADN es un medio excelente para el almacenamiento de datos. Usando las enzimas Cas1 y Cas2, el sistema inmune bacteriano almacena el contenido nuclear de virus invasores para inmunizarse ante ellos, pudiendo ser utilizados para escribir información arbitraria en el genoma.</p><p id="fad39498-0762-4668-8278-4f6b272a0916" class="">Shipman y colaboradores, en <em>CRISPR-Cas encoding of a digital movie into the genomes of a population of living bacteria, </em>emplean el sistema CRISPR-Cas para codificar en el genoma de una población de bacterias los valores de blanco-negro de los píxeles de una imágen y un vídeo corto, demostrando que este sistema puede capturar y almacenar establemente datos digitales.</p><p id="9faa9508-72f1-43d3-8c32-82b697745f27" class="">Mediante los sistemas CRISPR de las bacterias <em>E-coli</em> (de Tipo I, pues necesitan de la presencia de una sección PAM para actuar), el ADN de viruses invasores se inserta en un array CRISPR en espaciadores de 33 bases, que provienen de secuencias llamadas <strong>protoespaciadores</strong>.</p><p id="7b351345-030f-4b95-be79-37ce599c69b9" class="">Comenzaron almacenando el valor de los píxeles de una imágen en un código de nucleótidos distribuídos sobre una serie de oligonucleótidos (cadenas cortas de bases nucleicas) protoespaciadores, que luego se introdujeron en bacterias poseedoras de una matriz de CRISPR funcional mediante electroporación (uso de pulsos eléctricos para crear poros temporales en membranas celulares) y, sobreexpresando el complejo de proteínas Cas1-Cas2, se favorece la adquisición de estos protoespaciadores por el genoma bacteriano.</p><h3 id="1510ea86-4b2e-4311-9c89-5effe13359c7" class="">Ejemplo de codificación</h3><div id="fa78c999-a859-445a-8a32-56846ff7baef" class="column-list"><div id="6ad952ce-94ab-4b23-a170-f7f0fe89bef4" style="width:50%" class="column"><figure id="6f533e74-538e-4a5d-b793-673cf4f1dd71" class="image"><a href="biosintetica_iii/Untitled%2015.png"><img style="width:614px" src="biosintetica_iii/Untitled%2015.png"/></a></figure></div><div id="4d7ba9d0-4d4c-49a1-bf61-1e41e0273c50" style="width:50%" class="column"><p id="cf68244b-04db-4b63-a331-6d833b2e9814" class="">Una imágen de 30x30 píxeles con 21 posibles tonos de gris se emplea una tabla de equivalencia en la que los tonos de gris vienen representados por tripletes de bases y la información viene distribuída en protoespaciadores, cada uno en representación de un “pixet”, un set de 9 píxeles identificado por una secuencia de 4 nucleótidos. En total se necesitarán 100 protoespaciadores para cubrir la imágen completa.</p></div></div><h3 id="8fd5b0c3-867c-4e0b-aab9-591a4c9584eb" class="">Recuperación de la información</h3><p id="6e03edcf-6648-42c2-b551-8533fa768e05" class="">La recuperación de la misma imágen del ejemplo anterior o de cualquier otro archivo sigue una distribución probabilística dependiente del número de lecturas genómicas de bacterias de la población así como del número de oligopéptidos suministrados a las bacterias, siendo siempre más precisas cuantas más lecturas se efectúen y más oligopéptidos se provean:</p><figure id="b8cb7cd5-af03-4e87-bfcd-ab5aa05b3d6c" class="image"><a href="biosintetica_iii/Untitled%2016.png"><img style="width:1017px" src="biosintetica_iii/Untitled%2016.png"/></a></figure><h3 id="78893ee7-f0dd-4d13-8537-f076a60ffd57" class="">Codificacion/Decodificación de un GIF en bacterias</h3><div id="4c7102c8-371f-4e24-9751-bd585e99e6f6" class="column-list"><div id="3e88570e-0d44-4bcd-8fb4-0037e6512e65" style="width:50%" class="column"><figure id="ca964756-efed-4243-9e85-bd05a2c8c08b" class="image"><a href="biosintetica_iii/Untitled%2017.png"><img style="width:972px" src="biosintetica_iii/Untitled%2017.png"/></a></figure></div><div id="afd36fcb-48f4-438e-a465-fbb204194a54" style="width:50%" class="column"><p id="79de0f06-ecbe-4a3a-ad61-193d11d6ddf9" class="">También en el mismo trabajo, Shipman y colaboradores llevan a cabo la escritura y lectura de un GIF en un sustrato dado por una población bacteriana, con resultados igualmente prometedores:</p></div></div><h1 id="0dca28c2-ca2a-452f-ac1c-2eee3cafda78" class="">Registro de datos analógicos celulares</h1><h2 id="6eab3ad5-bd19-47b0-8621-3d372948416b" class="">Sistemas CAMERA (CRISPR-mediated Analog Multi-Event Recording Apparatus)</h2><p id="3fa6ca73-8918-41a5-8a54-fd465adb2504" class="">En <em>Rewritable multi-event analog recording in bacterial and mammalian cells, </em>Tang y Liu presentan dos sistemas de grabado de eventos celulares en células bacterianas y de mamíferos usando editores de bases y nuceasas Cas9: CAMERA 1 y CAMERA 2. Estos dispositivos son capaces de guardar registros sobre la duración y amplitud de una cierta señal.</p><div id="7fcf567e-cfaf-45ac-94cc-b8b79125e56e" class="column-list"><div id="6551af1a-a922-4ab9-ad75-35f317635458" style="width:50%" class="column"><figure id="6c2ecb6c-4f6a-4cf4-9f9a-41f771e98db3" class="image"><a href="biosintetica_iii/Untitled%2018.png"><img style="width:543px" src="biosintetica_iii/Untitled%2018.png"/></a></figure></div><div id="bbac9747-1896-48ae-be07-50e552a6a9fe" style="width:50%" class="column"><p id="eb285f91-f97c-4f39-841e-6d9dbcd3f55a" class="">CAMERA 1 utiliza la nucleasa Cas9 para variar el ratio entre una pareja de plásmidos de grabación, que son idénticos salvo por la presencia de una mutación de 3 nucleótidos en uno de ellos producida por el complejo Cas9-sgRNA, cuya expresión está controlada por la señal de interés. </p><p id="c3b2478d-4c11-4564-bc1c-231e85c89f54" class="">De forma natural, los plásmidos tienen un ratio muy estable de en torno al 60-40 (R1-R2) en algunas bacterias y al 70-30 en otras.</p></div></div><div id="40dacb34-0c2c-40f8-85d2-49e6666dd65f" class="column-list"><div id="f79643b1-64ff-49c8-8094-591f987f1fa6" style="width:56.25%" class="column"><p id="49d99c6b-75a0-4668-aae5-30e1e8ff3c9b" class="">En presencia y ausencia de la señal (aTc), los registros correspondientes al ratio en porcentaje del plásmido R1 medidos a las 3h y 6h son los que se puede apreciar en la figura al lateral. Se puede observar una pequeña disminución en el ratio de R1 en ausencia de la señal al pasar el tiempo, que corresponde a la consumición basal del R1 por transcripción natural del promotor asociado a la activación de la Cas9.</p><p id="47ae4b54-21ec-4ecb-98ac-7eedaf429844" class="">En presencia de la señal, se observa una fuerte variación en los niveles de R1 que es más acentuada con el paso del tiempo.</p></div><div id="3452f258-f1b6-44be-b652-7dd2c5c6bdb5" style="width:43.75%" class="column"><figure id="a4d70d26-8f1f-4152-839f-613b49f46e45" class="image"><a href="biosintetica_iii/Untitled%2019.png"><img style="width:432px" src="biosintetica_iii/Untitled%2019.png"/></a></figure></div></div><p id="726168b6-54c5-473b-8f32-cb3ed4698d5d" class="">En contraste, los sistemas CAMERA 2 emplean edición de bases para registrar la amplitud y duración de las señales exógenas. En estos sistemas, las bacterias poseen un plásmido escritor consistente de un editor de bases, compuesto por una dCas9 y una enzima editora de bases que introduce el cambio de un único C-G por un T-A (que en este caso viene dado por una citidina desaminasa<em><strong> </strong></em>y sgARNs. De nuevo, la dCas9 está controlada por la señal de interés.</p><div id="65fb3e40-d56e-423a-8d6e-ffb610cbf174" class="column-list"><div id="c32edf21-65d8-49d7-8a9d-9f574f9bac53" style="width:50%" class="column"><p id="72bf54c3-b33f-4722-b857-8d2e6fbb603e" class="">En el gráfico al lateral se puede apreciar cómo evoluciona el porcentaje de células que han adquirido la edición de base en la posición objetivo con respecto a la generación bacteriana para diversos valores de concentración de la señal.</p><p id="dc07db88-ef92-442f-8c85-c0f439a90557" class="">Estos sistemas tienen la ventaja añadida de que son susceptibles de ser revisados y ajustados para la detección de varias señales celulares.</p></div><div id="de7c95a1-2c4e-4da8-8aae-3d9add33b036" style="width:50%" class="column"><figure id="05c1d470-f9af-4dbe-a07a-0bb766dbc521" class="image"><a href="biosintetica_iii/Untitled%2020.png"><img style="width:457px" src="biosintetica_iii/Untitled%2020.png"/></a></figure></div></div><h2 id="f000eff7-ee66-4b36-9337-7426486ec655" class="">Sistemas SCRIBE (Synthetic Cellular Recorders Integrating Biological Events)</h2><p id="7146a22c-6df6-4dc3-b180-65770dc11542" class="">Los sistemas SCRIBE son capaces de convertir el ADN en una grabadora para memorizar información analógica en poblaciones de células vivas. </p><p id="51d51d2a-be25-4e8d-8757-e06111c3d979" class="">Para ello, generan ADN de única hebra (ssADN) dentro de las células vivas como respuesta a ciertas señales reguladoras de genes. Cuando estos ssADNs se coexpresan con una recombinasa (una enzima que cataliza el intercambio de información de material genético por recombinación entre dos hebras de ADN), estos ssADNs sirven de guía hacia <em>loci</em> específicos del ADN genómico de la célula, introduciendo mutaciones muy precisas sobre éstas que se acumulan como una función de la magnitud y duración del estímulo, convirtiendo así las señales transitivas en memoria codificada genéticamente.</p><p id="98a91a7c-bab4-4ff5-accc-83aecd1927ae" class="">La memoria biológica codifica información en el genoma colectivo de la población en forma de la fracción de células que lleva mutaciones específicas.</p><p id="a83b5ff8-7b73-4d54-9bf8-1b0762473a47" class="">En <em>Synthetic biology. Genomically encoded analog memory with precise in vivo DNA writing in living cell populations, </em>Farzadfard y Lu llevan a cabo esta técnica para el registro analógico a lo largo de un extendido periodo de tiempo de un historial de eventos.</p><figure id="affc82dc-0161-452f-b40b-86ffd075a0af" class="image"><a href="biosintetica_iii/Untitled%2021.png"><img style="width:995px" src="biosintetica_iii/Untitled%2021.png"/></a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

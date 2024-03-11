@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Biología Sintética I: Biocircuitos pioneros</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3549f34b-fe48-4f79-b308-79b8dde9d5ca" class="page sans"><header><h1 class="page-title">Biología Sintética I: Biocircuitos pioneros</h1><p class="page-description"></p></header><div class="page-body"><p id="333193a9-8002-4bf6-96d3-50fe04353cfa" class="">La biología sintética es la aplicación del proceso de ingeniería en el paradigma de diseño de sistemas a la biología, y se define como “la síntesis de sistemas complejos de base biológica que, además de ser predecibles y robustos, son capaces de exhibir comportamientos que no existirían de forma exclusivamente natural”.</p><p id="620e3d97-a7c8-4bc0-95cd-4757aa1b59d3" class="">La biología como una rama tecnológica permite:</p><ul id="8d975fe9-e402-49e6-9df2-488c8c781a83" class="bulleted-list"><li style="list-style-type:disc">La manufacturación de dispositivos biológicos sintéticos</li></ul><ul id="20c80246-74ed-4378-8a0e-c9552f141733" class="bulleted-list"><li style="list-style-type:disc">La reprogramación de sistemas biológicos naturales</li></ul><h1 id="4aa0ea79-cf38-4213-9500-addb20e52d7f" class="">Regulación de la expresión genética</h1><p id="0f3ee94f-07a4-4c59-b7f7-bbe5b5a42b92" class="">La expresión génica es el proceso mediante el cual la información codificada en un gen se utiliza para dirigir el montaje de una molécula de proteína. La secuencia del gen se lee en grupos de tres bases (codones), cada uno de los cuales corresponde a un aminoácido, los bloques de construcción de las proteínas.</p><p id="cab5458a-ccce-479a-8b91-ed6b0639c4f2" class="">La expresión de un determinado gen puede regularse mediante tres mecanismos:</p><ul id="7d0fca4f-0640-474b-8057-1ec7a873953a" class="bulleted-list"><li style="list-style-type:disc"><strong>Control transcripcional: </strong>Sucede en la fase de transcripción, que es el primer paso de la expresión génica, en el cual se transfiere la información contenida en la secuencia del ADN hacia la secuencia de proteína utilizando diversos ARN como intermediarios. Durante la transcripción genética, las secuencias de ADN son copiadas a ARN mediante una enzima llamada<a href="https://es.wikipedia.org/wiki/ARN_polimerasa"> </a>ARN polimerasa (ARNp), la cual sintetiza una molécula de ARN mensajero (ARNm) que porta la información de la secuencia del ADN necesaria para la síntesis de una proteína. La ARNp se une al ADN en los <strong>promotores </strong>(secciones promotoras) de un gen, que lo anteceden. Este mecanismo de control sucede a nivel de ARN.</li></ul><ul id="93145eaf-0c46-422e-a5ed-edf0ddcf8d73" class="bulleted-list"><li style="list-style-type:disc"><strong>Control traduccional:</strong> La expresión del gen se regula durante la fase de traducción (<em>translation</em>), que corresponde al proceso de síntesis de una proteína por los ribosomas de una célula. En la traducción, el ARNm se decodifica para generar una cadena específica de aminoácidos, que se denomina <strong>polipéptido</strong>. Éste da lugar a una proteína cuando se vuelve suficientemenete grande y particular y adopta una estructura tridimensional única y estable. Este mecanismo se produce a nivel ribosómico.</li></ul><ul id="a3b9548b-39b0-4cd6-9c5e-be4ca6612e67" class="bulleted-list"><li style="list-style-type:disc"><strong>Control post-traduccional: </strong>Sucede tras la fase de traducción, actuando a nivel protéico mediante la alteración de la actividad de la proteína por modificaciones químicas.</li></ul><figure id="07a9279f-5831-458b-bb26-8abc66f71b57" class="image"><a href="biosintetica_i/Untitled.png"><img style="width:576px" src="biosintetica_i/Untitled.png"/></a></figure><p id="28dade6a-a423-4862-b733-d9d12ff08ec0" class="">La mayoría de las herramientas de las que se hablará este curso ejercen el control de la expresión en la fase de transcripción, siendo el mecanismo más común el uso de<strong> factores de transcripción.</strong></p><blockquote id="c3c4c5df-0e30-4eba-a795-6bf143441d0b" class=""><strong>Definición (factor de transcripción): </strong>Un factor de transcripción es una proteína que se une a secuencias específicas de ADN, denominadas operadores, controlando la transcripción del material genético a ARNm mediante la modificación de la tasa de reclutamiento de la ARNp.</blockquote><p id="ff64ba57-0e05-4649-b9dc-438947b04604" class="">Los factores de transcripción promueven (activadores) o inhiben (represores) la transcripción de un determinado gen uniéndose a la sección de operación de éste y modificando la afinidad de la sección promotora percibida por las ARNp.</p><div id="01717c74-cf51-4062-b75b-c196c07e6728" class="column-list"><div id="08fdc636-6b4c-49b4-9f77-f2cb9bc182be" style="width:25%" class="column"><figure id="d5caf91e-21bb-456f-8dda-e370420ad70a" class="image"><a href="biosintetica_i/Untitled%201.png"><img style="width:590px" src="biosintetica_i/Untitled%201.png"/></a></figure></div><div id="d592586d-44a9-4f09-a0bf-a2ee31ee98c1" style="width:75%" class="column"><figure id="cc5bfce4-4dbb-46a8-a7e4-4a2c0330f7a0" class="image"><a href="biosintetica_i/Untitled%202.png"><img style="width:1453px" src="biosintetica_i/Untitled%202.png"/></a></figure></div></div><div id="2ece6e8f-a95f-4706-a192-5a2c13269553" class="column-list"><div id="a01b59cc-5d42-45ef-92ea-71ffde1acc40" style="width:29.166666666666664%" class="column"><figure id="38237b24-7563-4433-a38a-f0018ad75f8c" class="image"><a href="biosintetica_i/Untitled%203.png"><img style="width:470px" src="biosintetica_i/Untitled%203.png"/></a></figure></div><div id="c9a2da97-706d-460e-bc3f-67e340c5c867" style="width:25%" class="column"><figure id="d3c39a1d-796b-4d30-9e3e-7bca6c8dfb05" class="image"><a href="biosintetica_i/Untitled%204.png"><img style="width:492px" src="biosintetica_i/Untitled%204.png"/></a></figure></div><div id="5df3a7a1-fd27-4f34-9d0f-f47e8d906933" style="width:45.833333333333336%" class="column"><figure id="33536c62-48c4-42ce-aa2b-026fedc7ae9d" class="image"><a href="biosintetica_i/Untitled%205.png"><img style="width:682px" src="biosintetica_i/Untitled%205.png"/></a></figure></div></div><div id="51f0831c-9d26-4008-abb3-2721e6d3bd6c" class="column-list"><div id="14017565-c41e-41b4-befd-5073435d788a" style="width:50%" class="column"><p id="f01d89ed-4bd2-43f8-aaae-4aff6cedf78c" class="">La operación de <strong>inducción </strong>permite controlar la expresión génica por medio del uso de inductores, moléculas que aumentan la expresión de un determinado gen uniéndose a sus activadores, reforzando el enlace de éstos a los operadores correspondientes o bien uniéndose a sus represores, lo que evita que se unan al operador. </p></div><div id="14640857-819e-4edf-ad74-164c650bd8bd" style="width:50%" class="column"><figure id="90ffd154-b54a-4e2e-a6ad-1ea5ce3a34f6" class="image"><a href="biosintetica_i/Untitled%206.png"><img style="width:621px" src="biosintetica_i/Untitled%206.png"/></a></figure></div></div><h1 id="1705fed1-aef6-4fe2-b96a-2e05122e6c63" class="">Biocircuitos pioneros</h1><p id="bf29746b-9d41-42f7-8771-47082522ccde" class="">Las células son sistemas de gran complejidad debido al enorme número de interacciones de diversa naturaleza que existen entre sus componentes y genes. Los organismos multicelulares son capaces de crear estructuras y patrones muy complejos y precisos a partir de componentes mínimos, idénticos y extremadamente ruidosos (poco confiables).</p><p id="7446a5a7-f022-4a09-ae07-c37fe5716034" class="">Aprender a diseñar este comportamiento robusto a partir de componentes biológicos en la forma de biocircuitos no sólo podría aportar un mejor entendimiento de los procesos naturales biológicos, sino también de las ciencias computacionales.</p><h2 id="46cf0eff-d0f2-449f-8500-c0b78936708b" class="">Estabilidad genética por autorregulación </h2><p id="8f7b97f4-12ff-4325-80f3-3c92e275682f" class="">Becskei y Serrano demostraron en el 2000 (<em>Engineering stability in gene networks by autoregulation</em>) que un bucle de retroalimentación negativa en la expresión de un gen ayuda a reducir la variabilidad en el valor de su expresión en una población de células.</p><figure id="df30d487-dfc2-4339-a9d3-df11807580e3" class="image"><a href="biosintetica_i/Untitled%207.png"><img style="width:432px" src="biosintetica_i/Untitled%207.png"/></a></figure><p id="2c339a0a-eeae-4963-a124-186ad07a2f34" class="">Para ello construyeron circuitos genéticos simples a partir de un regulador y módulos de represión transcripcionales con <em>E. coli </em>y observaron las ganancias en estabilidad producida por la retroalimentación negativa.</p><h2 id="da251309-ed20-4008-8a6f-5be52e9f5b98" class="">Puertas lógicas con redes genéticas sintéticas</h2><p id="906ae40f-64fc-473a-a226-fc015d45d77a" class="">Usando un sistema de represión e inducción se pueden construir diversas puertas lógicas. </p><p id="de7eb8ec-941e-4488-b9e1-55ba68540aa4" class="">En 2002, Hasty, McMillen y Collins (<em>Engineered gene circuits</em>) establecieron cómo podían implementarse las puertas lógicas AND y OR para el diseño de circuitos genéticos en términos de la presencia de un activador e inductor como <em>inputs </em>y la transcripción (o ausencia de ésta) de un determinado gen como <em>output</em>. Por ejemplo, para la puerta AND:</p><figure id="f21d8995-fcec-4635-a2ed-c38d647aea63" class="image"><a href="biosintetica_i/Untitled%208.png"><img style="width:432px" src="biosintetica_i/Untitled%208.png"/></a></figure><p id="f794a983-0cc4-4221-b1af-a3a2641e3bc6" class="">Alternativamente, se pueden utilizar dos inductores como inputs, tal y como sugiere la siguiente representación, en la que una flecha capada indica una regulación de represión (una flecha normal suele indicar una regulación de estimulación).</p><figure id="767e0bb4-8c5d-48d1-9128-f4d25f063424" class="image"><a href="biosintetica_i/Untitled%209.png"><img style="width:432px" src="biosintetica_i/Untitled%209.png"/></a></figure><p id="d70975dc-d743-464f-94a2-0b681125dfa9" class="">En este caso, la expresión del gen <em>gfp, </em>que es la salida de la puerta, sólo se produce de estar presentes dos inductores para el segundo promotor, ya que el promotor 1 es <strong>constitutivo</strong> (está siempre activo), y, por tanto, los genes <em>lacl </em>y <em>tetR </em>siempre se transcriben e inhiben la producción de <em>gfp </em>a menos que haya dos inductores que inhiban a los represores.</p><p id="66638576-8ce1-4a08-b7fc-6eee3dd7945e" class="">De menera análoga se puede construir una puerta OR siguiendo el siguiente esquema:</p><figure id="80026a9d-6068-463a-a871-208b8fa0e5b9" class="image"><a href="biosintetica_i/Untitled%2010.png"><img style="width:432px" src="biosintetica_i/Untitled%2010.png"/></a></figure><p id="2b3cc3da-cbe3-46f7-8dce-b9384c3dcd05" class="">Donde el promotor 1 también es constitutivo, de manera que la presencia del inductor para el promotor 2 o la del inductor para el promotor 3 ya son capaces de por sí de activar la expresión del <em>gfp</em>.</p><p id="727df16d-bb34-422b-87c6-aa27cf2cfadc" class="">También proponen el diseño de una puerta AND con memoria, que una vez llega al estado <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span> de su salida, equivalente a la producción del gen objetivo, lo retiene. Para ello hacen que el primer promotor se vea reprimido por la producción de un gen <em>cI </em>que se genera a partir del segundo:</p><figure id="58a98e2a-0ca3-4ed6-bd59-e68e83354cc8" class="image"><a href="biosintetica_i/Untitled%2011.png"><img style="width:432px" src="biosintetica_i/Untitled%2011.png"/></a></figure><p id="3c9009a2-9206-4fd7-91dd-2711413f10af" class="">Weiss y sus colaboradores en 2003 montan otra serie de puertas lógicas genéticas, entre otras una puerta IMPLY, que las células utilizan para realizar interacciones con el entorno y cuya tabla de verdad corresponde a la expresión matemática <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>≤</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A\leq B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.136em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span></span><span>﻿</span></span>.</p><figure id="9a885d13-89f8-4e2b-ae30-82757a4657e6" class="image"><a href="biosintetica_i/Untitled%2012.png"><img style="width:432px" src="biosintetica_i/Untitled%2012.png"/></a></figure><p id="e207b336-abcf-4e63-b2ef-72d09109760d" class="">También desarrollan una puerta NAND, que con la adición de una puerta NOT a la salida puede trabajar como una AND. </p><figure id="b59cd7af-9370-475b-a931-0e584cec361c" class="image"><a href="biosintetica_i/Untitled%2013.png"><img style="width:432px" src="biosintetica_i/Untitled%2013.png"/></a></figure><h3 id="407d9235-a155-4f81-bedb-ba29ede5ebcc" class="">El oscilador sintético (<em>repressilator</em>)</h3><p id="5363a287-bf9b-4def-81ec-d6ff5c38fc3b" class="">Elowitz y Leibler (<em>A synthetic oscillatory network of transcriptional regulators</em>) crean en el 2000 una red transcripcional que tiene un comportamiento oscilatorio utilizando tres genes represores que actúan uno sobre le otro en una cadena transitiva (como en un juego de piedra, papel o tijera)</p><figure id="23de9ff8-3787-4007-92bf-ee37c35534ff" class="image"><a href="biosintetica_i/Untitled%2014.png"><img style="width:904px" src="biosintetica_i/Untitled%2014.png"/></a></figure><h3 id="98ba3fed-e799-4396-9a88-8eb7951f7cae" class="">Interruptor genético</h3><p id="464b63f0-7ff2-4939-8ce1-9f0227a7e7a5" class="">Gardner, Cantor y Collins ingenian en el 2000 un interruptor genético usando <em>E. coli </em>(<em>Construction of a genetic toggle switch in Escherichia coli</em>), que constituye un circuito con <strong>memoria</strong>, pues recuerda las señales de entrada incluso cuando han desaparecido y mantiene su estado. </p><figure id="dffab33e-6cee-4fa8-a31b-2f09d7f3fca6" class="image"><a href="biosintetica_i/Untitled%2015.png"><img style="width:1311px" src="biosintetica_i/Untitled%2015.png"/></a></figure><p id="f043d0e1-c62c-4386-80f4-30783d030698" class="">El circuito funciona de la siguiente manera: El represor 1, generado por el promotor 2, bloquea la transcripción del promotor 1 y es a su vez el objetivo del inductor 1, que inhibe la represión que ejerce sobre el promotor 1. Por otro lado, el promotor 2, que genera el represor 1, está inhibido por el represor 2, que viene a su vez anulado por el inductor 2. </p><p id="ab2f07a3-9662-4b13-b6ab-3cfbb2e96a11" class="">De este modo, la presencia del inductor 1 anula la producción del represor 2, lo que permite la transcripción del represor 1 (que continúa anulando la represión 2) y del gen de salida (<em>Reporter</em>), mientras que la presencia del inductor 2 anula la producción del represor 1 y del gen de salida, mientras que permite la producción del represor 2, que mantendrá este estado.</p><h3 id="4def0fbc-5dd5-4133-840a-7de79e9879a4" class="">Computadores biológicos</h3><p id="0cf1933f-bdb4-436f-9495-59cbf6a5dee2" class="">A partir de estas puertas lógicas, Benenson, Shapiro y otros colaboradores fueron capaces a mediados de la década de los 2000 de construir una computadora molecular autónoma para la regulación de la expresión génica por medio de control lógico. </p><h1 id="df478f90-f823-42ca-a41a-16ca2532a507" class="">Patrones de red genética</h1><p id="815a8bdb-0615-4b58-9bbe-f724a42772ea" class="">Las redes transcripcionales de muchos microorganismos parecen estar construidas a partir de un pequeño conjunto de patrones de regulación recurrentes, los <strong>motivos de red genética </strong>o <em><strong>gene network motifs.</strong></em></p><p id="fbe64340-1734-460d-a510-ed43330f4be2" class="">Estos circuitos se han encontrado a lo largo y ancho de un gran número de microorganismos, desde bacterias hasta los humanos, por lo que pueden ser concebidos como los circuitos de interacción que constituyen los ladrillos básicos a partir de los cuales se construyen las redes genéticas.</p><p id="c6834cf1-abfd-4873-92c4-af8141288fcd" class="">Las familias de motivos de red que establece Uri Alon en <em>Network motifs: theory and experimental approaches </em>(2007) son:</p><h3 id="0356bb48-cc8d-4090-8cc4-ae9d866b4fb5" class="">Regulación simple</h3><p id="4adc764e-a4dd-4693-a598-3f2f365beb93" class="">Son aquellas interacciones de transcripción que se pueden representar por una única flecha en un grafo, bien de estimulación (indicada por una flecha con punta) o de inhibición (indicada por una flecha acabada en plano). Este tipo de regulación ocurre cuando el factor de transcripción <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span>, que suele estar activado por una señal <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span></span><span>﻿</span></span>, regula el gen <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> sin interacciones adicionales.</p><p id="163d15fc-9a32-4f24-af2b-0df493c90bd5" class="">Cuando comienza la transcripción de un gen, la concentración de la proteína producto del gen crece hasta llegar a un nivel estacionario, dado por el cociente entre las tasas de producción y degradación (que incluye tanto la degradación activa de la proteína como la dilución por crecimiento de la célula). Cuando la producción para la concentración del producto decae exponencialmente. El tiempo de respuesta cuando la producción para, que se define como el tiempo que se tarda en alcanzar la mitad entre el estado inicial y final, viene dado por la vida media del producto del gen.</p><p id="fa45409a-c4ce-4d8a-bf97-9de1b09a3b91" class="">Los mecanismos de regulación simple más importantes son:</p><ul id="1cbb34bc-c65c-4e1a-93aa-7f653eddacb8" class="bulleted-list"><li style="list-style-type:disc"><strong>Autorregulación negativa (NAR): </strong>Se da cuando un factor de transcripción reprime la transcripción de su propio gen, lo que produce dos efectos:<ul id="7173e33b-605b-4e31-b5fd-871466b0bafd" class="bulleted-list"><li style="list-style-type:circle">Reduce los tiempos de respuesta, pues permite el uso de promotores muy fuertes para ciertos genes que se autorreprimen a un nivel estacionario una vez alcanzan rápidamente un umbral</li></ul><ul id="95924718-9d63-416c-b954-3ff65b22974c" class="bulleted-list"><li style="list-style-type:circle">Reduce la variabilidad en concentración protéica entre células, pues la retroalimentación negativa hace que un si el producto de la expresión de un gen aparece demasiado concentrado en una célula, reduzca su propio ratio de producción, mientras que si aparece en baja concentración favorecerá su producción, resultando en distribuciones de niveles de proteínas más estrechas</li></ul></li></ul><ul id="4ac294b3-e985-455f-8945-f121b5412d0a" class="bulleted-list"><li style="list-style-type:disc"><strong>Autorregulación positiva (PAR): </strong>Ocurre cuando un factor de transcripción estimula su propia producción, lo que produce efectos opuestos a la NAR:<ul id="e15ac725-30ed-43c9-8b85-bceccdcc0ead" class="bulleted-list"><li style="list-style-type:circle">Aumenta los tiempos de respuesta, pues se llega al estado estacionario con una curva en forma de S, dado que al inicio los niveles del gen serán bajos y, por tanto, también lo será su producción. Los tiempos de respuesta serán incluso más largos que para un gen regulado naturalmente.</li></ul><ul id="d3675913-e9ad-4f7a-bc3e-c526c19cbc89" class="bulleted-list"><li style="list-style-type:circle">Aumenta la variabilidad entre células, pudiendo llegar a darse una distribución bimodal de ser la PAR lo suficientemente fuerte, en la que la concentración de un gen es baja en unas células y alta en otras. Este fenómeno permite dividir la población celular y, por tanto, establecer una memoria de expresión genética o mantener un fenotipo mixto para responder mejor a un entorno estocástico.</li></ul></li></ul><div id="c92ca687-f58f-4df7-a83f-e3a742dc6b7d" class="column-list"><div id="5583b2e2-c1e5-47b3-ae5e-82eef101f623" style="width:33.333333333333336%" class="column"><figure id="88651f90-4d35-4f1c-8130-6b9663e0d303" class="image"><a href="biosintetica_i/Untitled%2016.png"><img style="width:430px" src="biosintetica_i/Untitled%2016.png"/></a></figure></div><div id="a20bbaf4-c558-498e-9099-35428ca79baf" style="width:33.333333333333336%" class="column"><figure id="708e4e42-6adf-49bb-8e98-0a13822ef443" class="image"><a href="biosintetica_i/Untitled%2017.png"><img style="width:425px" src="biosintetica_i/Untitled%2017.png"/></a></figure></div><div id="f0ea967e-b027-4864-85cb-8fd15074e0fa" style="width:33.33333333333333%" class="column"><figure id="3153c402-ec95-4387-aa74-557c2418da55" class="image"><a href="biosintetica_i/Untitled%2018.png"><img style="width:389px" src="biosintetica_i/Untitled%2018.png"/></a></figure><figure id="6cb91315-d9ed-42ef-a59b-58f694b3040e" class="image"><a href="biosintetica_i/Untitled%2019.png"><img style="width:416px" src="biosintetica_i/Untitled%2019.png"/></a></figure></div></div><h3 id="84f9d1eb-71e7-46de-9cf6-9d552cde095c" class="">Bucles de alimentación hacia delante</h3><div id="c1c78242-d1a3-439b-8526-5accb180f633" class="column-list"><div id="e59a183a-402d-4501-843f-8a66d902143c" style="width:50%" class="column"><p id="ea6c6560-6874-4f8c-9b57-2a393b16ced5" class="">Los <em>feedforward loops </em>(FFL) son un motivo de red genética constituído por tres genes: Un regulador <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span>, que regula el gen <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> y un gen <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> regulado tanto por <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> como por <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span>. Como cada una de las tres acciones de regulación puede ser de activación o de represión, en total hay 8 tipos de FFL, divididos en:</p><ul id="26acf24b-cf57-407a-8eb9-8c79735ce408" class="bulleted-list"><li style="list-style-type:disc"><strong>Coherentes: </strong>El signo de los dos caminos dirigidos de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> es el mismo (ambos reprimen o ambos activan a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span>)</li></ul><ul id="653428a0-4c60-4efa-8d06-1636470a957c" class="bulleted-list"><li style="list-style-type:disc"><strong>Incoherentes: </strong>El signo de cada camino de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> es distinto (uno reprime a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> y el otro lo activa)</li></ul></div><div id="166d752d-90b7-41bc-9828-09f6a009935c" style="width:50%" class="column"><figure id="26b24c57-ad1f-4889-8759-fc7e1a39166b" class="image"><a href="biosintetica_i/Untitled%2020.png"><img style="width:500px" src="biosintetica_i/Untitled%2020.png"/></a></figure></div></div><p id="f38f90da-6df9-41f0-a82c-f42c7adcd7df" class="">En las redes transcripcionales más estudiadas, dos de los FFL aparecen con mucha más frecuencia que los demás, el coherente tipo-1 (C1-FFL) y el incoherente tipo-1 (I1-FFL).</p><p id="ba32f249-9ed2-40ce-b87b-edce3fc99f2f" class="">En el <strong>C1-FFL</strong> <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> e <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> son dos activadores transcripcionales, y constituye un “retardador sensible al signo” (<em>sign-sensitive delay</em>), pues si se acopla una puerta AND para modelar cómo interfieren <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> e <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> en la producción de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> se observa que existe un cierto retraso en la producción cuando ésta comienza, pero ningún retraso cuando termina.</p><p id="0161c413-177c-4ea5-8405-6a4c48c9bb3e" class="">Cuando aparece la señal <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>X</mi></msub></mrow><annotation encoding="application/x-tex">S_X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> se activa y estimula la producción de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span>, así como la primera entrada de la puerta lógica que dará lugar a la activación de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span>. No obstante, para que ambas entradas se encuentren activas, primero <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> debe llegar a un cierto umbral, por lo que existe un <em>delay</em> o retraso en la producción. Cuando la señal <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>X</mi></msub></mrow><annotation encoding="application/x-tex">S_X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> se retira, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> deja de estar activo y se frena inmediatamente la producción de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span>, por lo que sólo existe retraso cuando el signo de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mi>X</mi></msub></mrow><annotation encoding="application/x-tex">S_X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07847em;">X</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> es positivo (cuando se enciende la producción). El retraso viene determinado por los parámetros bioquímicos del regulador <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span>. Este retraso puede ser utilizado para filtrar pulsos espontáneos de señal.</p><div id="5b5d38cd-a818-460f-a682-262fa751f8ab" class="column-list"><div id="246aec60-c15f-48eb-8ca1-074bd89bc06a" style="width:18.75%" class="column"><figure id="eebc4b38-382f-40a8-870e-ca24f46274e8" class="image"><a href="biosintetica_i/Untitled%2021.png"><img style="width:199px" src="biosintetica_i/Untitled%2021.png"/></a></figure></div><div id="74c86194-8399-4bc6-8be8-776fb2deb601" style="width:81.25%" class="column"><figure id="d6b87b1a-eb99-4fbc-b326-45c003100d7f" class="image"><a href="biosintetica_i/Untitled%2022.png"><img style="width:624px" src="biosintetica_i/Untitled%2022.png"/></a></figure></div></div><p id="fc7a5b88-8461-4ef4-90ac-41f89248f1b6" class="">Si en lugar de una activación AND <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> e <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> interactúan según una tabla OR para la activación de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> el efecto producido es el opuesto: existirá un cierto retraso en el paso OFF de la producción de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> (es decir, cuando se pare), pero no en el inicio de ésta, lo que permite, por ejemplo, obtener producción continua de un gen incluso ante pérdidas momentáneas de la señal. </p><div id="ea71a035-b5b5-4eef-90e7-30cfdc667d84" class="column-list"><div id="c34bb4c0-fb1b-4464-89fb-3e079b8382a6" style="width:18.75%" class="column"><figure id="885e040e-2973-44e1-bba3-78afe8022f46" class="image"><a href="biosintetica_i/Untitled%2023.png"><img style="width:130px" src="biosintetica_i/Untitled%2023.png"/></a></figure></div><div id="3ce4c71c-fa84-41b0-bcf8-016eb14a0bb9" style="width:81.25%" class="column"><p id="de499346-6784-4c0c-aeb7-c96b4c50d2b1" class="">Por otro lado, el <strong>I1-FFL</strong> es un generador de pulsos y acelerador de la respuesta. Por una de las ramas del circuito, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> activa <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span>, pero por el otro brazo, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> activa <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span>, que a su vez reprime <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span>. Como resultado, cuando una señal activa a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> se produce rápidamente <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span>, pero también se acumula <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> hasta que reprime la producción de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> y disminuye su concentración. </p><p id="821c1a4c-23d2-44eb-b379-4dae12b728c2" class="">Esto puede emplearse como un <strong>acelerador de la respuesta</strong>, haciendo que <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> aumente su concentración rápidamente por la activación dada por <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> y posteriormente frene a su estado estacionario por acción de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> o bien, si la represión que ejerce <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> sobre <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> es total, como un <strong>generador de pulsos.</strong></p></div></div><div id="7019c722-7636-4eda-940d-ab77030f10d8" class="column-list"><div id="92c2e827-8b88-4939-bc8f-bb2f12ce1ede" style="width:44.99999999999999%" class="column"><figure id="09a29c14-71bf-44f3-98e6-87de2902afbb" class="image"><a href="biosintetica_i/Untitled%2024.png"><img style="width:707px" src="biosintetica_i/Untitled%2024.png"/></a></figure></div><div id="e30ce220-c684-4db3-bfec-beb608bd5cec" style="width:54.99999999999999%" class="column"><figure id="5e5d9083-3dfb-41c8-b6d0-9b37d4a49cd7" class="image"><a href="biosintetica_i/Untitled%2025.png"><img style="width:708px" src="biosintetica_i/Untitled%2025.png"/></a></figure></div></div><p id="9541d831-69d3-48df-8688-99ad52cdd356" class="">Regueira, Daza y Rodríguez-Patón demuestran en 2019 (<em>The multicellular incoherent feedforward loop motif generates spatial patterns</em>) que el bucle multicelular de retroalimentación incoherente alimentado hacia delante (mIFFL) genera patrones espaciales. En este modelo, los nodos interactuantes no tienen por qué ser genes dentro de una misma célula, sino que pueden estar distribuídos espacialmente en células diferentes.</p><p id="bf6412fc-4a7a-4add-ae82-b63ce003607b" class="">Las contrapartidas multicelulares de los IFFL de tipo 2 y 3 son las siguientes:</p><div id="8d4f83c0-4ebf-40ee-9926-eccfab2e3164" class="column-list"><div id="2441a6af-b1cb-4104-b0f8-1650366c6830" style="width:50%" class="column"><figure id="5af31f95-ee8a-4442-9c66-d84ece51aa3d" class="image"><a href="biosintetica_i/Untitled%2026.png"><img style="width:970px" src="biosintetica_i/Untitled%2026.png"/></a></figure></div><div id="26b9435e-0e8f-44d4-9c71-5f2fae305df0" style="width:50%" class="column"><figure id="7fb23d4d-acd0-4c4c-a9f0-f908c435ea32" class="image"><a href="biosintetica_i/Untitled%2027.png"><img style="width:995px" src="biosintetica_i/Untitled%2027.png"/></a></figure></div></div><p id="0e47ffe1-f833-4275-9a67-64c0b7ec81f4" class="">Donde la raya sólida representa un proceso intracelular y la raya punteada uno intercelular. Ambas configuraciones permiten generar pulsos de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span>. En el de tipo 2, la entrada de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> reprime a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> (expresado porque no tenía represor), lo que causa la activación de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span> por ausencia de su represor hasta que la represión lenta de éste por <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> comienza. En el de tipo 3 sucede análogamente, pero la entrada de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> activa la expresión de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> que activa <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span>. En ambos casos se produce un pulso por la diferencia de tiempo en las respuestas.</p><h3 id="f34812a1-a1d6-48b9-87cc-74c1f7d2a429" class="">Motivos con memoria</h3><p id="eaf7166f-7686-4d03-be7f-c4aad8ae4999" class="">Los motivos presentados anteriormente responden rápidamente y son reversibles, pero también es necesario en ocasiones tracucir señales en nuevos estados para una célula, siendo los motivos más importantes para el desempeño de esta tarea los bucles de retroalimentación con dos factores de transcripción que se regulan entre sí, existiendo por tanto dos variantes: el <strong>bucle con doble positivo</strong> y el<strong> bucle con doble negativo.</strong></p><figure id="f249f3cc-6f83-4703-a77e-6d7c1d60e451" class="image"><a href="biosintetica_i/Untitled%2028.png"><img style="width:1080px" src="biosintetica_i/Untitled%2028.png"/></a></figure><p id="d15a8a6f-7e60-4fd1-a8b7-e234c4f8b03b" class="">En ambos casos, el bucle tiene dos estados estacionarios que vienen determinados por la presencia o ausencia de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi></mrow><annotation encoding="application/x-tex">Z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">Z</span></span></span></span></span><span>﻿</span></span>. En el caso del doble positivo, este corresponde a <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> e <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> ambos en ON o en OFF, y en el caso de doble negativo, a uno en ON y a otro en OFF. A menudo <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi></mrow><annotation encoding="application/x-tex">X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span></span></span></span></span><span>﻿</span></span> e <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi></mrow><annotation encoding="application/x-tex">Y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">Y</span></span></span></span></span><span>﻿</span></span> ejercen PAR sobre sí mismos, con lo que el efecto se refuerza.</p><h1 id="fb135373-5699-497f-bd15-0cb1be5fafb5" class="">Osciladores genéticos</h1><p id="3a58889c-fb09-43ba-9ed5-aef00a38b8dc" class="">En 2008, Stricker y colaboradores (<em>A fast, robust and tunable synthetic gene oscillator</em>) diseñaron un oscilador genético basado en <em>E. coli</em> que era preciso, robusto, rápido y persistente, con periodos tan cortos como 13 minutos que pueden ajustarse mediante la variación de los niveles de inductores, la temperatura o el medio. El comportamiento oscilador se obtiene de la contraposición de la actividad de dos bucles de <em>feedback, </em>uno positivo y uno negativo.</p><figure id="38931cba-a474-4b72-a6d7-bc67afa1925a" class="image"><a href="biosintetica_i/Untitled%2029.png"><img style="width:1256px" src="biosintetica_i/Untitled%2029.png"/></a></figure><p id="2789ebc8-9fa1-487b-ad57-0e85e6ab40e5" class="">En la figura, la parte <strong>a</strong> corresponde al diagrama de doble <em>feedback, </em>donde un promotor híbrido activa la transcripción de araC y lacI, formando un bucle positivo (en verde) y uno negativo (en rojo), mientras que la parte <strong>b</strong> corresponde a las trayectorias inducidas para ciertas condiciones iniciales, con el mapa de densidad pintado en escala cromática encima. </p><p id="3b88fe62-f39a-44bc-a598-60bfc65bc09f" class="">En las siguientes figuras se puede observar el funcionamiento de los pasos intermedios del oscilador, así como la evolución temporal de las concentraciones de cada una de las proteínas producto.</p><div id="d946b573-7cc1-45f1-9fc9-d3aeaedee4c3" class="column-list"><div id="44411f17-7e1a-409d-9471-d9ca8a6ead49" style="width:37.5%" class="column"><figure id="c02d4e50-b3ac-4b0b-a6a8-db96947f02b7" class="image"><a href="biosintetica_i/Untitled%2030.png"><img style="width:487px" src="biosintetica_i/Untitled%2030.png"/></a></figure></div><div id="c366077a-fa4c-4ad1-8801-68d86328a068" style="width:62.5%" class="column"><figure id="3b238211-7695-41fd-bbc7-c2d72febadd2" class="image"><a href="biosintetica_i/Untitled%2031.png"><img style="width:577px" src="biosintetica_i/Untitled%2031.png"/></a></figure></div></div><p id="6e21596c-bee5-4947-8484-b3f6a1cef072" class="">La mayoría de los pasos intermedios (multimerización, traslación, doblado de proteínas) en el oscilador introducen un retraso efectivo en las señales, que ayuda a que el modelo sea aún más robusto.</p><div id="4a162a49-090e-4160-adce-12914c286049" class="column-list"><div id="9f46766f-3852-4268-a6d9-0bb661edbfce" style="width:37.5%" class="column"><figure id="e33122be-663f-4f40-b6fd-1c020f616fec" class="image"><a href="biosintetica_i/Untitled%2032.png"><img style="width:265px" src="biosintetica_i/Untitled%2032.png"/></a></figure></div><div id="7b666aea-a663-4931-a335-26b4b8f4c403" style="width:62.5%" class="column"><p id="7f67d65e-d74e-46a3-accc-d04619539c43" class="">En el mismo paper también proponen el diseño de un oscilador que no requiere de un bucle de retroalimentación positivo, pues ya se había propuesto que se puede obtener tal comportamiento a partir únicamente de un bucle de retroalimentación negativo siempre y cuando éste lleve un cierto retraso (<em>delay</em>), que en este caso viene dado por el retraso efectivo producido por los pasos intermedios del oscilador.</p></div></div><p id="ec91578e-4f5f-4b6a-a363-bcadeb2e05ca" class="">Miró-Bueno y Rodríguez-Patón (<em>A simple negative interaction in the positive transcriptional feedback of a single gene is sufficient to produce reliable oscillations</em>) proponen dos modelos de oscilador basados en un solo bucle de retroalimentación: </p><ul id="8ffa8aff-541b-4a73-a810-aeb41b0d5497" class="bulleted-list"><li style="list-style-type:disc">Uno basado en un bucle negativo que necesita de una señal con retraso para funcionar (o de una altamente no lineal)</li></ul><ul id="fdf5bef2-34cc-40ba-a20f-e9d9b4f3e7cf" class="bulleted-list"><li style="list-style-type:disc">Uno basado en un bucle de retroalimentación positiva que produce comportamiento oscilatorio a partir de una única interacción negativa</li></ul><div id="cf00528a-3a88-4bac-9eab-00bfaa280b21" class="column-list"><div id="de626b5e-1dec-4b71-bd48-763f52ea99e2" style="width:62.5%" class="column"><figure id="7b0137a4-9e42-48bc-ab4e-5bb22a68d88e" class="image"><a href="biosintetica_i/Untitled%2033.png"><img style="width:671px" src="biosintetica_i/Untitled%2033.png"/></a></figure><p id="a9ced0dc-65c2-4045-9d0f-fdede1f311cb" class="">Las flechas curvadas representan degradaciones.</p></div><div id="de8bcddd-3e7e-45fa-b94b-58d7c637acbb" style="width:37.50000000000001%" class="column"><figure id="841042ca-f487-4d41-95cc-2446dcf05b5f" class="image"><a href="biosintetica_i/Untitled%2034.png"><img style="width:472px" src="biosintetica_i/Untitled%2034.png"/></a></figure></div></div><div id="dc9c9e1f-eaa7-44c8-99fc-a74f2d7e4b17" class="column-list"><div id="f3834497-e65f-4313-b471-1dfd65791d14" style="width:37.5%" class="column"><figure id="91a1ff79-6569-4643-9de1-725645487840" class="image"><a href="biosintetica_i/Untitled%2035.png"><img style="width:373px" src="biosintetica_i/Untitled%2035.png"/></a></figure></div><div id="e786ebda-18a4-4038-8379-20a5a27cdff3" style="width:62.5%" class="column"><p id="6b9d07eb-6b8b-4d66-8b6c-3bef295abe8f" class="">Primero se produce un bucle de retroalimentación positiva en el que un gen <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span></span></span></span></span><span>﻿</span></span> se transcribe en una cadena de mRNA <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span></span><span>﻿</span></span>, que a su vez se traduce a una proteína <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span><span>﻿</span></span>, que es un factor de transcripción de su propio gen y, por tanto, estimula su propia producción. </p><p id="a298747c-04d6-4907-badb-b21f39e42a1e" class="">Para obtener las oscilaciones robustas, se añade al sistema en una tasa constante una molécula represora <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi></mrow><annotation encoding="application/x-tex">R</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span></span><span>﻿</span></span> que inhibe la función de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span><span>﻿</span></span> formando al unirse con ésta el compuesto <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></span><span>﻿</span></span>, de modo que <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span><span>﻿</span></span> no se puede unir a su promotor. </p></div></div><p id="7713f47d-2b44-4b69-a84e-2b618dcdc7f4" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

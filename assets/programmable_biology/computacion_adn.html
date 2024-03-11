@@ -1,0 +1,678 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Computación con ADN</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="797bec31-7a08-4bef-8b16-ce639bd8b1b8" class="page sans"><header><h1 class="page-title">Computación con ADN</h1><p class="page-description"></p></header><div class="page-body"><p id="29f27958-88d0-4e1c-8960-ec1abd911219" class="">El fin ulterior de mirar el mundo con los ojos de un ingeniero y el objetivo central de este curso se puede sintetizar en una frase: ¿Podemos programar cosas para hacer trabajo útil por nosotros?</p><p id="9f479a1b-fa54-460c-b69e-66237c7a29e7" class="">En este curso se proyectará esta mira sobre microorganismos vivos:</p><ul id="b92b2897-6475-42a8-9aca-b69fc70ece21" class="bulleted-list"><li style="list-style-type:disc">Bacterias para defendernos de otros microorganismos</li></ul><ul id="a0a9f20d-ffc3-4654-b269-e9d338402958" class="bulleted-list"><li style="list-style-type:disc">Virus para producir vacunas por nosotros</li></ul><ul id="99f97ffb-740e-40f2-88fb-606c4ace8427" class="bulleted-list"><li style="list-style-type:disc">Bacterias que produzcan un cierto químico</li></ul><ul id="06b4f977-e92e-4b1c-82cf-35587d4c3a18" class="bulleted-list"><li style="list-style-type:disc">Células preparadas para evitar enfermedades</li></ul><p id="131ef8ec-939a-4316-bebc-3be8add88009" class="">La inteligencia artificial <em>in vivo</em>, es decir, la programación de comportamiento inteligente en computadoras vivas, constituye una de las ramas de investigación principales en biología programable, pudiendo ser usadas para diagnóstico y abastecimiento de medicinas <em>in vivo</em>.</p><h1 id="96904db8-0027-4154-8479-ddd7ae13ff9f" class="">La estructura del ADN</h1><p id="c8e7302c-910c-4603-88bc-efe5086f6056" class="">La molécula de ADN es una doble hélice compuesta de un esqueleto formado por dos hebras de fosfato (azúcares) que contienen la información genética necesaria para la vida y reproducción de una célula codificada mediante cuatro bases nitrogenadas: Adenina, Timina, Citosina y Guanina, que, tal y como demostraron Watson y Crick, son complementarias, es decir, las moléculas de Adenina (A) siempre aparecen ligadas a moléculas de Timina (T) y las de Citosina (C) con moléculas de Guanina (G), de modo que una de las hebras contiene toda la información genética codificada mientras que la otra, contiene la misma información pero escrita en su forma complementaria. Esta redundancia de la molécula de ADN existe para corregir mutaciones.</p><p id="1c2ecfe9-ac61-4e2b-b486-912fdb1fbaf1" class="">La molécula de ARN tiene una estructura análoga, pero emplea Uracilo en lugar de Timina.</p><p id="cd584c2e-737e-4260-a526-f5f8d6b267b2" class="">Las dos hebras de una molécula de ADN no son simétricas, sino que tienen extremos diferentes (llamados 3’ y 5’), con propiedades químicas distintas.</p><p id="01abeeb1-0412-412e-b008-5abde65644c1" class="">La molécula de ADN contiene el <em>sistema operativo</em> de una célula, es decir, el genoma. Todo el genoma de un humano está almacenado en poco menos de 3GB de información. Para una bacteria, mucho más simple, este peso es mucho menor, siendo de tan solo algunos MB para la bacteria <em>E-coli</em>, una de las más utilizadas para computación biológica (de hecho, hay quien la ha clasificado como el <em>arduino </em>de la biología).</p><p id="bfe56aac-5982-4d95-b704-45728ce1711b" class="">Un gen es una pieza de ADN que codifica una proteína completa. Las proteínas son la máquina biológica que realiza todas las funciones de una célula, y para producirlas, una célula debe ser capaz de leer y replicar su información genética. Las bacterias <em>E-coli</em> tienen del orden de 4000 genes, luego son capaces de producir hasta 4000 proteínas diferentes. Las células humanas contienen hasta 25000 genes. En términos matemáticos esto implica que el genoma humano puede ser representado como un grafo de alrededor de 25000 nodos con una infinidad de arcos conectándolos, muchos de ellos aún no comprendidos. De hecho, incluso para los tan solo 4000 genes de la bacteria <em>E-coli</em>, hay sectores del genoma que aún no comprendemos.</p><h2 id="41dc96f2-3eb1-491b-a18a-83f42d3a48fa" class="">Operaciones sobre ADN</h2><p id="84c7aa8e-22d1-4af5-851e-432485fccd21" class="">Hoy en día podemos hacer un gran conjunto de operaciones con ADN:</p><ul id="4817b626-4598-4fc0-99db-2b142a060a2d" class="bulleted-list"><li style="list-style-type:disc">Síntesis (escritura) y secuenciación (lectura)</li></ul><ul id="6facc9cc-bbfd-46e1-bf81-5469bbf12883" class="bulleted-list"><li style="list-style-type:disc">Hibridación de bases complementarias</li></ul><ul id="572ade6f-fc7a-4fee-8de3-dbd5bfb4d4c8" class="bulleted-list"><li style="list-style-type:disc">Desnaturalización de una molécula de ADN (separación de las hebras)</li></ul><ul id="7dfe945a-7468-4c97-9d5f-b5d713fc649b" class="bulleted-list"><li style="list-style-type:disc">Corte de una molécula de ADN</li></ul><ul id="e18bc2ba-93cb-4225-bd3a-c98b129f97ff" class="bulleted-list"><li style="list-style-type:disc">Separación por longitud por electrofóresis en gel, pues las cadenas más largas se mueven más lentamente en un gel al aplicar un campo eléctrico</li></ul><ul id="f2a27601-b6ed-4656-ace7-4546326296e5" class="bulleted-list"><li style="list-style-type:disc">Extracción de un sector de ADN seleccionándolo por unión con su complementario</li></ul><ul id="dc120448-9de4-41a5-9bc9-dc5c3c38bf87" class="bulleted-list"><li style="list-style-type:disc">Copia de ADN por polimerización con ADN-polimerasa (la ADN-polimerasa humana es muy precisa, la viral lo es mucho menos, pues tienen muchos descendientes y les conviene explorar muchas mutaciones diversas rápidamente y la de la bacteria <em>E-coli</em>, capaz de replicar sus 4000 genes en unos pocos minutos, tan solo causa uno o dos errores)</li></ul><ul id="3a82e6ce-1d80-4f35-9229-2607b58575e5" class="bulleted-list"><li style="list-style-type:disc">Amplificación por Reacción de Polimerasa en Cadena (PCR), que funciona como una suerte de fotocopia de ADN, duplicando la cantidad de ADN en cada ciclo</li></ul><ul id="a3488f4f-8035-40d2-8979-b72a895ee08f" class="bulleted-list"><li style="list-style-type:disc">Transcripción, o generación de la molécula de ARN correspondiente de un segmento de ADN y transcripción inversa (o retrotranscripción)</li></ul><ul id="3a7a827c-37a4-4e24-9a4e-69550f044ae8" class="bulleted-list"><li style="list-style-type:disc">Detección de ADN basada en desplazamiento de un segmento (<em>strand displacement</em>), utilizando un segmento de ADN parcialmente hibridizado de la secuencia que se quiere detectar, de modo que el segmento que corresponde a la hibridación perfecta competirá y ganará (termodinámicamente, pues ofrece complementaridad completa), liberando la cadena parcialmente hibridizada, que puede portar una baliza inhibida por el segmento original, de forma que cuando se libera alerta de la existencia de una coincidencia<figure id="daed38e8-6fc1-4ef9-a931-231ea766fa5e" class="image"><a href="computacion_adn/Untitled.png"><img style="width:240px" src="computacion_adn/Untitled.png"/></a></figure></li></ul><h3 id="8bf5c165-3588-4058-82a1-3b07dbd14274" class="">Ejemplo de detección de ADN: autómata biomolecular</h3><div id="2001f853-0cfc-4834-85d5-da8dcff4a160" class="column-list"><div id="b0ea0271-8577-41e3-b6fb-1816b61ccdc3" style="width:56.25%" class="column"><figure id="296d1a2c-b902-4f19-be5d-380589f02b14" class="image"><a href="computacion_adn/Untitled%201.png"><img style="width:528px" src="computacion_adn/Untitled%201.png"/></a></figure></div><div id="198426ec-8956-4a93-bcef-5a0f9332b4ba" style="width:43.75%" class="column"><p id="6bc7799a-6b2b-4449-9ede-144bbb7c2c04" class="">En este ejempo, a partir de un sensor de ADN se construye una molécula capaz de diagnosticar medicar que, al detectar un segmento de mRNA que asegura un diagnóstico, desinhibe un medicamento que lo trata.</p></div></div><h1 id="8b363442-1327-4432-8304-5f9e1d6c1080" class="">Computación biomolecular</h1><p id="46422e28-5d3e-40aa-a743-7fcd19124e35" class="">Llamamos computación biomolecular al procesamiento de información con el uso de biomoléculas. La computación con biomoléculas como el ADN no pretende reemplazar la computación digital (jamás tendremos un PC de computación biomolecular corriendo office en un escritorio), y de hecho, ni siquiera apunta a competir con ésta en potencia, pero tiene prometedoras aplicaciones:</p><ul id="b549ffb9-71f6-458c-b403-b9f020c2b65f" class="bulleted-list"><li style="list-style-type:disc">Control de dispositivos biomoleculares</li></ul><ul id="063f5a1b-cd20-4004-81b5-2809918fdabf" class="bulleted-list"><li style="list-style-type:disc">Procesamiento de información biológica <em>in vivo </em>o <em>in vitro</em></li></ul><ul id="26d2d469-7fb4-47ce-92cf-3d33edb232b6" class="bulleted-list"><li style="list-style-type:disc">Realización de operaciones dentro de células u otros organismos vivos</li></ul><p id="e36afe83-1a3f-4d67-b393-1116b86a67e3" class="">L. Adleman fue uno de los pioneros en el uso de algoritmos biológicos con computación biomolecular para resolver problemas combinatorios, como el del camino hamiltoniano direccionado (1994), que se formula como:</p><blockquote id="7f6348b3-41ae-45dc-9b9e-bb3ba0c41816" class="">Dado un grafo dirigido <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">G=(V,A)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">A</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> con <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span></span><span>﻿</span></span> arco, ¿Es cierto que siempre existe un camino Hamiltoniano (una secuencia de arcos <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msub><mi>e</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">e_1,...,e_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">...</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>) comenzando en un vértice inicial <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{in}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> y terminando en <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>f</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{fin}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> que pasa por todos los demás sólo una vez?</blockquote><p id="9a22f2e1-0132-4a1e-9353-f5e56c7c9e2c" class="">Por ejemplo, para el problema del viajero aplicado sobre una serie de ciudades españolas y un plan de vuelos, se podría usar el código de Adleman sobre ADN codificando cada ciudad (nodos de la red) como un determinado segmento de ADN y, empleando las propiedades de direccionalidad e hibridación del ADN, codificar los vuelos disponibles (arcos de la red) como un segmento de ADN compuesto en su mitad 5’ por la ciudad de partida y en su mitad 3’ por la de llegada, de modo que cuando se juntan todas las piezas y se dejan reaccionar se puede obtener una hebra de ADN codificando el camino hamiltoniano, que debe seleccionarse de entre aquellas que comienzan y acaban en los nodos especificados como inicial y terminal.</p><div id="c8702eac-2d19-45f8-929f-fcb00150cbde" class="column-list"><div id="235551b6-fde5-471b-ae55-6bb5280bd418" style="width:50%" class="column"><figure id="83e1fd6b-e090-4010-a418-1cf7848926e2" class="image"><a href="computacion_adn/Untitled%202.png"><img style="width:1139px" src="computacion_adn/Untitled%202.png"/></a></figure></div><div id="f8e6dc06-ffb8-432a-b031-ac3a283ae923" style="width:50%" class="column"><figure id="bf382992-e57f-4c5d-b22d-0df1e93d6aeb" class="image"><a href="computacion_adn/Untitled%203.png"><img style="width:1135px" src="computacion_adn/Untitled%203.png"/></a></figure></div></div><h2 id="edf6e608-8d7b-454f-9b68-f011aab1058c" class="">El modelo de computación de Adleman</h2><p id="7602b364-fd31-47e3-891b-819fe1be3528" class="">El sistema utilizado en el problema anterior para resolver el problema del viajero se conoce como el modelo de computación con ADN de Adleman, y se pueden sintetizar sus componentes como sigue:</p><ul id="0aa1641a-14d4-427f-9df4-d87a198ceac7" class="bulleted-list"><li style="list-style-type:disc">Entrada (<em>input</em>): Las soluciones a un problema codificadas como hebras de ADN en un tubo de ensayo</li></ul><ul id="5eff2a8a-4e53-4a85-8a96-61d14511f131" class="bulleted-list"><li style="list-style-type:disc">Memoria: El tubo de ensayo contenedor de las hebras de ADN</li></ul><ul id="febc1014-f2ea-4571-aa13-e7b9a47e5711" class="bulleted-list"><li style="list-style-type:disc">Programa: La secuencia de operaciones que se efectúan de forma externa sobre las hebras de ADN</li></ul><ul id="9d53fd05-c4c6-499d-80af-36b4ccf6be84" class="bulleted-list"><li style="list-style-type:disc">Computación: La secuencia de reacciones que sucede en el tubo de ensayo</li></ul><ul id="c5ad7f16-5f26-4fb9-bb4e-137dc854e525" class="bulleted-list"><li style="list-style-type:disc">Solución: El contenido final del tubo</li></ul><p id="6cdb1c3e-18d7-4b0b-aa2d-d4bee982652b" class="">Los programas en el modelo de computación de Adleman no se almacenan. La computación se realiza por fuerza bruta, mediante sucesivas filtraciones en un proceso de búsqueda y construcción.</p><h1 id="a879dc9c-23c6-405f-9717-f7990650a473" class="">Dispositivos basados en <em>strand displacement</em></h1><p id="6cc4a783-7d18-420a-96a0-0fc4f3d17e2e" class="">El concepto central del mecanismo de desplazamiento de hebras es la competición entre diferentes hebras de ADN parcialmente complementarias de modo que, por medio de procesos termodinámicos, un segmento de hebra de ADN de entrada (<em>input</em>) puede desplazar una cadena parcialmente complementaria de un complejo molecular cuya configuración preferida (de máxima complementareidad) se obtiene al hibridizarse con la hebra de entrada, sometiendo la hebra parcialmente complementaria a un proceso de migración de hebra.</p><div id="d54aabe0-2fc0-4c23-8535-7cdda44ac055" class="column-list"><div id="ad99b7c0-0e28-49e5-a9a4-8b01723c91bc" style="width:62.5%" class="column"><figure id="b563c8bc-2fe7-4c27-aa44-44df9b943cb1" class="image"><a href="computacion_adn/Untitled%204.png"><img style="width:528px" src="computacion_adn/Untitled%204.png"/></a></figure></div><div id="ab1480b0-04d4-45ed-a58e-0d21c3375d5f" style="width:37.5%" class="column"><p id="739eeedf-d999-4e94-bb5f-9e5345a49dcd" class="">Para que se produzca la migración de la hebra parcialmente complementaria, es necesario que su emparejada tenga un segmento libre, un <em>toehold</em> o punto de apoyo, al que pueda conectarse la hebra de entrada.</p></div></div><figure id="8dd409fc-5116-44db-bea0-9b3b11a4b049"><div class="source"><a href="computacion_adn/DNA_Strand_Displacement.mp4">https://s3-us-west-2.amazonaws.com/secure.notion-static.com/24adbf6a-a27c-4cdb-96a9-f616786e3d4b/DNA_Strand_Displacement.mp4</a></div></figure><p id="7798e309-f56d-4fdc-9e69-23a46f379648" class="">
+</p><h2 id="310f7366-0bb0-464f-ad55-d07ff22551b4" class="">Puertas lógicas de ADN</h2><p id="cd56562a-63bf-4da2-b8cd-e96388be4b6a" class="">Este tipo de dispositivos permiten diseñar puertas lógicas con cadenas de ADN como <em>inputs </em>y <em>outputs</em>, mientras que los valores de los estados binarios <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span> y <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span><span>﻿</span></span> vendrán dados en términos de la presencia o ausencia de una determinada molécula (con este propósito uno debe establecer un umbral de concentración). Una vez se pueda diseñar con estos sistemas una puerta lógica AND o, equivalentemente, NAND, que son con las que trabajan la mayoría de computadoras modernas, se podrá implementar cualquier circuito lógico.</p><div id="5b14c879-cf95-4c5a-924a-28da45d1d699" class="column-list"><div id="8168ee5f-d963-4017-8067-3b99f745b47a" style="width:50%" class="column"><figure id="1e285036-40f3-4255-9e94-183c3f894ac0" class="image"><a href="computacion_adn/Untitled%205.png"><img style="width:789px" src="computacion_adn/Untitled%205.png"/></a></figure></div><div id="fcb1b504-8633-436f-854c-b8af068d7f12" style="width:50%" class="column"><p id="59323d79-086b-4666-bc85-2b6580ea8797" class="">Una puerta lógica AND programada con ADN se puede implementar mediante una reacción en cadena de entradas <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span><span>﻿</span></span> y <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></span><span>﻿</span></span> y salida <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span><span>﻿</span></span>, de forma que la presencia de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span></span><span>﻿</span></span> libera una hebra <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span></span><span>﻿</span></span> de una molécula parcialmente hibridizada con su complementario <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>A</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><annotation encoding="application/x-tex">A&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> que su vez, puede hibridizarse con una cadena <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>B</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><annotation encoding="application/x-tex">B&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>, lo que permite liberar un detector <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>C</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mi>D</mi></mrow><annotation encoding="application/x-tex">C&#x27;D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span><span>﻿</span></span> de la presencia de <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></span><span>﻿</span></span>, por lo que sólo en presencia de ambas entradas se liberará la molécula <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span><span>﻿</span></span>.</p></div></div><h2 id="64447e7a-5f89-40d8-8468-f442c53e8828" class="">PER: Primer Exchange Reaction Mechanism</h2><p id="69cb4f11-96e5-4d2d-ab49-fa9a400b9f15" class="">El mecanismo PER es una de las pocas maneras que existen para producir hebras de ADN con secuencias prescritas arbitrariamente de forma automatizada. Las cascadas de PER funcionan de forma isotérmica, produciendo una hebra de ADN preprogramada en una proceso secuencial por pasos con la ayuda de una polimerasa de desplazamiento de cadenas (<em>strand displacement</em>).</p><p id="0992bf74-6398-450b-a354-79d7965dca85" class="">La reacción comienza con un pequeño fragmento de hebra que constituye el primer ladrillo sobre el que se construirá la cadena, el partidor (<em>primer</em>). Este partidor (a) puede unirse por complementareidad a una horquilla (<em>hairpin</em>) formada por un segmento de ADN (de doble hebra) correspondiente a la siguiente secuencia que se quiere añadir al partidor (b) y su complementario (b’), así como del complementario del partidor. Posteriormente, una polimerasa replica el fragmento b a partir de b’ extendiendo el partidor a hasta que llega a la secuencia de parada. Finalmente, se produce un proceso de migración de hebra, pues el fragmento b original desplaza al recién creado, desligando la secuencia extendida y liberando la horquilla para interactuar con otro partidor.</p><figure id="d783d138-ebee-490f-9096-959a4eeb8f04" class="image"><a href="computacion_adn/Untitled%206.png"><img style="width:1447px" src="computacion_adn/Untitled%206.png"/></a></figure><p id="8cb7b569-ce9b-409a-8fe0-981ab1c6fd62" class="">Este proceso se puede encadenar empleando el partidor extendido como un nuevo partidor para otra reacción PER, obteniendo así la secuencia deseada:</p><figure id="c6fa8ca6-fdc8-40b0-9e55-1c249e06cb94" class="image"><a href="computacion_adn/Untitled%207.png"><img style="width:1404px" src="computacion_adn/Untitled%207.png"/></a></figure><p id="e316b965-607c-496b-a5da-d3a83e405de1" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

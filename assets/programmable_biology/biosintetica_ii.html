@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Biología sintética II: Interruptores de ARN y microARNs</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c5d403ca-d832-4c23-a92b-b984403e1ef4" class="page sans"><header><h1 class="page-title">Biología sintética II: Interruptores de ARN y microARNs</h1><p class="page-description"></p></header><div class="page-body"><div id="32747cc1-0384-40ec-816d-e659c02d7fee" class="column-list"><div id="b3d41e18-4904-415c-8014-2ddc6189b188" style="width:50%" class="column"><figure id="3237f71f-6c9b-4b65-bee1-df4ededdf291" class="image"><a href="biosintetica_ii/Untitled.png"><img style="width:929px" src="biosintetica_ii/Untitled.png"/></a></figure></div><div id="ad2820bf-f0a9-4422-a124-86ea044f5107" style="width:50%" class="column"><p id="e1212cdc-b043-4041-b0bc-cc6dabc5a8da" class="">En la transcripción se obtiene de una secuencia de ADN su complementaria de ARN mediante la acción de una ARN polimerasa (ARNp) que lee la información genética del ADN y monta la cadena de ARN correspondiente. Un gen es una secuencia de ADN que codifica una proteína, y cerca de cada gen, una secuencia de ADN llamada <strong>promotor </strong>controla dónde comienza la transcripción, de forma que si una proteína se une a esta sección puede bien estimular o reprimir la producción del gen.</p></div></div><h1 id="fefed5be-9002-49f7-98c8-7d01daa65092" class="">Interruptores de ARN</h1><h2 id="3b7dd978-ea26-46a5-b673-303157efe1ee" class="">Small Transcription Activating RNA (STAR)</h2><p id="9ebb1408-c617-43bf-9140-715abf1b3c3c" class="">La clave para programar la expresión génica consiste en controlar el comportamiento de las ARNp. Las herramientas para hacer comenzar la transcripción son numerosas, pero no lo son tanto aquellas para frenarla y terminar la transcripción.</p><p id="bb63d8b0-e478-40c0-bf80-a0d05c533268" class="">Una de las estrategias más ampliamente utilizadas por las bacterias para terminar la transcripción es el uso de estructuras de ARN llamadas <strong>terminadores transcripcionales.</strong></p><p id="1d7bce18-3808-4340-b607-a3d47b5126b4" class="">Estos terminadores transcripcionales se forman cuando, en un proceso de transcripción, la ARNp se encuentra con una secuencia que induce la pausa de la transcripción, la cual añade al ARNm en síntesis una secuencia de poli-uracilo. Esta pausa de la transcripción le proporciona al ARNm naciente el tiempo necesario para doblarse en forma de horquilla, lo que provoca la disociación de la ARNp de la cadena de ADN y el final de la transcripción.</p><div id="cb07008b-39aa-4cfb-8648-7cb1ff372af6" class="column-list"><div id="e9693104-83f1-438c-919c-44041fd0f953" style="width:62.5%" class="column"><figure id="e0db461a-7662-4a47-84d8-7bd5f4f298fc" class="image"><a href="biosintetica_ii/Untitled%201.png"><img style="width:1250px" src="biosintetica_ii/Untitled%201.png"/></a></figure></div><div id="79ae9681-bc9d-4cad-879b-9f5471a2a71c" style="width:37.50000000000001%" class="column"><p id="2f23f4a5-d7b9-494b-84ac-4c90748e3ea8" class="">Por tanto, un terminador está compuesto por una estructura en forma de horquilla y una secuencia de poliuracilo.</p></div></div><p id="ccb66c66-dc4f-4648-8711-c99a908daf5b" class="">Normalmente los terminadores se encuentran al final de la secuencia de un gen para señalar el fin de éste a la ARNp, aunque algunos terminadores se encuentran delante del gen, de forma que sólo se permite la trasncripción en condiciones celulares específicas. </p><p id="b6347c75-9f85-4a39-9c42-002db75bd963" class="">Inspirándose en tal mecanismo, uno puede transformar estos terminadores en activadores de la transcripción con lo que se denomina un sistema STAR: Small Transcription Activating RNA. Un sistema STAR está compuesto por la secuencia de ARN objetivo y la cadena de ARN STAR (en rojo).</p><figure id="a3b564c1-db90-44b6-97d2-380d06f28a9f" class="image"><a href="biosintetica_ii/Untitled%202.png"><img style="width:1210px" src="biosintetica_ii/Untitled%202.png"/></a></figure><p id="00ff7ad0-e520-4cd7-9634-3c0288c1c733" class="">La presencia de la cadena STAR disrumpe el terminador transcripcional situado delante del gen de interés uniéndose al ARN objetivo que se está sintetizando y evitando que tome forma de horquilla, con lo que puede proseguir la transcripción.</p><p id="a13d850c-33d6-4206-b667-17168b810753" class="">Los sistemas STAR permiten la creación de nuevos motivos de red genética, como el diseño de puertas lógicas exclusivamente de ARN. Un ejemplo de esquema AND usando mecanismos STAR sería el siguiente:</p><figure id="bd6c16e7-fd19-4029-83e9-d0cf2a6ccf18" class="image"><a href="biosintetica_ii/Untitled%203.png"><img style="width:785px" src="biosintetica_ii/Untitled%203.png"/></a></figure><p id="65c9c457-794c-4c8c-bfc9-30db9f0d52c4" class="">Este sistema emplea una división del sistema STAR en una sección de unión lineal y una sección de unión terminal de modo que sólo se produzca la activación de la transcripción cuando están ambos presentes porque ninguno de los dos por sí mismo pueda hacerlo.</p><h2 id="f8805259-87a8-40b0-8f0f-d1d5de7b34f6" class="">Interruptores de regulación de la traducción</h2><div id="3cdd6ee2-ce95-4933-9347-8d49ed6e9d32" class="column-list"><div id="98fb605c-5c36-4551-b6ab-97c7441da293" style="width:50%" class="column"><figure id="49407e93-187f-4542-8134-e3a929384ac7" class="image"><a href="biosintetica_ii/Untitled%204.png"><img style="width:723px" src="biosintetica_ii/Untitled%204.png"/></a></figure></div><div id="a4e2fd3f-60d7-4a94-b2e9-d79874188335" style="width:50%" class="column"><p id="3753b2fe-c8f0-4cdc-87eb-665290db5e10" class="">El proceso de traducción sucede por medio de las máquinas moleculares llamadas ribosomas, que se encargan de leer una secuencia de ARN y ensamblar el polipéptido que codifica a partir de aminoácidos, que luego se doblará adquiriendo la estructura tridimensional que le confiere el <em>status</em> de proteína.</p><p id="7b775c6e-cb98-4e5a-93d3-9b3005dd5856" class="">Se pueden diseñar mecanismos que actúen sobre este proceso para regular la expresión génica.</p></div></div><p id="410037a5-c1e6-4d18-be49-77ab7b09ea17" class="">Uno de los primeros mecanismos de regulación traduccional fue el propuesto por Green y colaboradores en 2014 (<em>Toehold Switches: De-Novo-Designed Regulators of Gene Expression</em>), los interruptores de <em>toehold</em> o punto de apoyo.</p><figure id="afacc43d-7dc6-4b0f-a1d4-b2d9addc675a" class="image"><a href="biosintetica_ii/Untitled%205.png"><img style="width:509px" src="biosintetica_ii/Untitled%205.png"/></a></figure><p id="45f277dc-a890-4c08-aa62-2611f3dc51db" class="">Estos interruptores están compuestos de dos cadenas de ARN llamados interruptor (<em>switch</em>) y disparador (<em>trigger</em>). El <em>switch </em>contiene la secuencia del gen regulado, y al inicio de ésta, un RBS (<em>ribosome binding site</em>) en forma de horquilla, que se encarga de reclutar al ribosoma, así como un codón de inicio “AUG” que indica dónde comienza la traducción. También contiene una sección de enlace (<em>linker</em>) que separa el gen de interés. En ausencia de la cadena disparadora, la estructura en horquilla previene la traducción. No obstante, la horquilla finaliza en un punto de apoyo dado por la secuencia <strong>a</strong>, de forma que la secuencia disparadora complementaria puede unirse para seguidamente forzar a la secuencia <strong>b a</strong> realizar una migración de rama, que al desligarse de la estructura de horquilla permite la desnaturalización (desdoblado) de la cadena interruptora y permite el comienzo de la traducción.</p><div id="1d5eab42-49a1-4951-acbd-ac8ecdffc284" class="column-list"><div id="b6962f14-a893-4c3a-bbf8-f615b6e70482" style="width:37.5%" class="column"><p id="a1004d09-119f-47f5-9433-539ddbfd25dd" class="">En el mismo trabajo también desarrollaron una librería con más de 600 <em>switches </em>de este tipo empleando elementos ortogonales para asegurar la mínima interferencia (<em>crosstalk</em>) entre disparador e interruptor de cada uno de los sistemas:</p></div><div id="899246d7-3c94-43ed-8977-97c5a62ae6f1" style="width:62.50000000000002%" class="column"><figure id="fea80b03-1f0a-404d-8887-4ee81b1db655" class="image"><a href="biosintetica_ii/Untitled%206.png"><img style="width:1153px" src="biosintetica_ii/Untitled%206.png"/></a></figure></div></div><p id="64d52b99-861a-4c4b-ad45-a6fc6346252d" class="">Estos sistemas interruptores pueden además ser activados por una cadena disparadora de ARNm (por su capacidad de emplear una cadena disparadora arbitraria para su activación), aunque trae la dificultad de que, a diferencia de los ARN creados de cero para ser de única rama, los ARNm suelen tomar alguna estructura secundaria (se doblan sobre sí mismos), complicando la unión al punto de apoyo. Para sortear esta dificultad es necesario alargar el dominio de este punto de apoyo de unos 12-15 nucleótidos (nts) a más de 24 nts. Este mecanismo permite el uso de los sistemas interruptores de punto de apoyo para la detección de ARN.</p><div id="85b766a9-f94c-4a00-937f-cf0cc32fcb94" class="column-list"><div id="dadb6abe-a9aa-44e3-8365-907daf9e1a4b" style="width:56.25%" class="column"><figure id="49ba78a6-b937-4814-a294-6f4999f43194" class="image"><a href="biosintetica_ii/Untitled%207.png"><img style="width:975px" src="biosintetica_ii/Untitled%207.png"/></a></figure></div><div id="51b86d23-1582-469a-ab50-fffb42d6445c" style="width:43.75%" class="column"><p id="427cbf0b-4b39-4b4d-b821-ad7e1cbe4904" class="">En el mismo paper, también demuestran que con estos mecenismos se puede construir una puerta AND de cuatro <em>inputs </em>encadenando tres interruptores de punto de apoyo y dos factores de transcripción ortogonales (con muy bajo <em>crosstalk</em>).</p></div></div><h3 id="d83f897b-1251-497b-bf7c-116d41646c5d" class="">Dispositivos de ribocomputación</h3><p id="21fba7b3-55a5-4a73-9310-d1f926172bad" class="">Green y colaboradores en <em>Complex cellular logic computation using ribocomputing devices</em> establecen las bases de la programación de dispositivos de ribocomputación, que emplean cadenas de RNA como <em>inputs</em> y proteínas como <em>outputs</em> </p><figure id="b60d9e67-434e-4670-add6-6bd6543eec4b" class="image"><a href="biosintetica_ii/Untitled%208.png"><img style="width:1318px" src="biosintetica_ii/Untitled%208.png"/></a></figure><p id="b97d560d-1359-4910-a616-5c6fe70ef57a" class="">A partir de interruptores de punto de apoyo, consiguen emular una puerta lógica AND de dos <em>inputs </em>y una puerta OR igualmente de dos <em>inputs</em>:</p><div id="b6b89973-e6d2-420f-a5b4-d39eb814f5bf" class="column-list"><div id="ac75f587-3f46-4177-a8e8-dfd3cb03bf06" style="width:62.5%" class="column"><figure id="9ac21677-d4de-47d8-afca-6d5778de85bb" class="image"><a href="biosintetica_ii/Untitled%209.png"><img style="width:946px" src="biosintetica_ii/Untitled%209.png"/></a></figure><figure id="a6db9984-a89f-4a2d-99f9-3974fe646d50" class="image"><a href="biosintetica_ii/Untitled%2010.png"><img style="width:907px" src="biosintetica_ii/Untitled%2010.png"/></a></figure></div><div id="a2251d9e-f8ba-4611-99d4-81c6dc3817d2" style="width:37.49999999999999%" class="column"><p id="64e5333b-088e-4ec7-aa44-b0e8c9ccca17" class="">Para llevar a cabo una puerta OR se emplean dos interruptores de punto de apoyo en serie detrás del gen de interés, de modo que activado uno, el ribosoma puede traducir el gen. </p><p id="bd3fdb51-b0b9-48b5-8839-7f04465c7589" class="">Se puede apreciar en los gráficos de acción que la activación del gen (en escala lineal) no es tan fuerte cuando sólo está presente una de las cadenas de <em>input </em>que cuando están las dos.</p></div></div><div id="8f43ec30-ecac-48c9-be01-8c412a77f2a7" class="column-list"><div id="620f56d0-3a6c-41fe-91de-128a9fc74df7" style="width:31.25%" class="column"><p id="2badf11e-b439-4d74-982c-1594e527c71f" class="">La puerta AND se implementa a partir de dos cadenas <em>input </em>semicomplementarias que juntas forman la cadena que se unirá al punto de apoyo para permitir la traducción del gen objetivo.</p></div><div id="394101ee-389b-4659-b180-3d73530e9f49" style="width:68.75%" class="column"><figure id="6229e463-d19c-44c8-bcbc-a29b1aa3bbe8" class="image"><a href="biosintetica_ii/Untitled%2011.png"><img style="width:432px" src="biosintetica_ii/Untitled%2011.png"/></a></figure><figure id="49d7d223-437c-49e5-b0e7-6d704b3fa8cf" class="image"><a href="biosintetica_ii/Untitled%2012.png"><img style="width:908px" src="biosintetica_ii/Untitled%2012.png"/></a></figure></div></div><h3 id="0d78b9e8-4ceb-48dc-9854-2e8df00dc140" class="">Riborreguladores represores de la traducción</h3><p id="f320bfff-32d4-4461-a386-46dee09b0d27" class="">Kim y sus colaboradores (<em>De novo-designed translation-repressing riboregulators for multi-input cellular logic</em>) desarrollan dos tipos de represores de la traducción a partir de mecanismos análogos a los presentados en el párrafo superior.</p><div id="8165e0e7-6e91-405b-a38b-d7467dffaa97" class="column-list"><div id="532de450-0e0c-4925-9408-3eea90a638a8" style="width:50%" class="column"><figure id="cba1326a-4d98-4244-a084-5611b027865c" class="image"><a href="biosintetica_ii/Untitled%2013.png"><img style="width:616px" src="biosintetica_ii/Untitled%2013.png"/></a></figure></div><div id="a8b68456-4cc4-43ac-af1b-0980a02cf66b" style="width:50%" class="column"><p id="e2b92ad1-0b9d-4e6c-a577-c7286c3c540d" class="">El primero es un sistema represor por punto de apoyo en el que la existencia de una estructura en forma de horquilla antes del RBS (<em>ribosome binding site</em>), situada de modo que permite la traducción de un gen objetivo, puede ser “desplazada” hacia el RBS por unión de una cadena de ARN disparadora, pues libera nuevos dominios que pueden formar otra horquilla que inhibe la traducción del gen objetivo.</p></div></div><div id="d20c5f14-08a0-4c7a-ad85-68aa8add12df" class="column-list"><div id="a1bae3e9-40c7-4768-944e-ae1c718508ed" style="width:50%" class="column"><p id="1623d89a-70ec-42a4-adbb-0c263b20b457" class="">El segundo mecanismo emplea una unión de tres direcciones (<em>three way junciton, </em>3JW). De no estar presente una cadena disparadora de ARN, la estructura en horquilla es inestable y permite la unión de un ribosoma. No obstante, la cadena objetivo puede formar una unión en cruce de tres vías que asegura la estructura en forma de horquilla e impide la transcripción del gen objetivo.</p></div><div id="2d8186b9-3b2e-41a2-a8f2-861b52364c1e" style="width:50.000000000000014%" class="column"><figure id="85799b85-b6db-4ad1-a99d-44496cc4f72b" class="image"><a href="biosintetica_ii/Untitled%2014.png"><img style="width:554px" src="biosintetica_ii/Untitled%2014.png"/></a></figure></div></div><h2 id="6d7b0d43-07cf-4e04-a10a-28bff602a9f0" class="">Despliegue de dispositivos biosintéticos</h2><p id="f5f9d66a-7102-427f-804c-6f6a5c55fbb5" class="">Las redes genéticas sintéticas tienen un amplio rango de usos para reprogramación de organismos, pero aún no se ha podido desarrollar todo su potencial por la dificultad que entraña emplearlas fuera de un ambiente de laboratorio. Una de las ideas pioneras para el despliegue de este tipo de dispositivos para trabajo de campo consiste en el secado en frío de las redes genéticas sintéticas en un sustrato de papel para después reactivarlo por hidratación, tal y como pusieron Pardee y colaboradores en <em>Paper-Based Synthetic Gene Networks:</em></p><figure id="801b425b-2ae8-4ebc-8333-f662c20831c6" class="image"><a href="biosintetica_ii/Untitled%2015.png"><img style="width:576px" src="biosintetica_ii/Untitled%2015.png"/></a></figure><p id="58e441d9-9cc9-45ba-a722-9b192a77dfcd" class="">Precisamente en este trabajo desarrollan un sistema cuya salida es colométrica (para ser reconocible a ojo) y que es capaz de actuar como un sensor. En este paper desarrollan un sensor capaz de distinguir entre cepas de Ebola a partir de una nucleoproteína (proteína asociada estructuralmente a un ácido nucleico) y lo desarrollan sobre un sustrato de papel sin que pierda eficacia.</p><p id="932340e4-ffa8-431e-bf77-8fc9893f05e7" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
